@@ -1,0 +1,1186 @@
+ARCHIVED CODE
+
+	// function buildBooks(books, mimeType) {
+	// 	$(".book-shelf").html("");
+	// 	if (books.length === 0) {
+	// 		$(".book-shelf").html('<div id="NoBooks">No books found.</div>');
+	// 		$(".pagination").fadeOut(500);
+	// 	}
+
+	// 	let progress = 0;
+
+	// 	const bookInstances = books.map(b => new Book(b.id, b.title, b.author, b.date, b.genres, b.characters, b.synopsis));
+
+	// 	for (let i = 0; i < bookInstances.length; i += 4) {
+	// 		const rowBooks = bookInstances.slice(i, i + 4);
+	// 		const row = document.createElement("div");
+	// 		row.className = "book-row";
+
+	// 		row.innerHTML = rowBooks.map(b =>
+	// 			`
+	// 	            <div class="book" data-id="${b.id}" data-book-type="${mimeType}">
+	// 	                <div class="book-container">
+	// 	                    <nav>
+	// 	                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+	// 	                            <button class="nav-link active" id="nav-overview-tab-${b.id}"
+	// 	                                data-bs-toggle="tab" data-bs-target="#nav-overview-${b.id}" type="button"
+	// 	                                role="tab" aria-controls="nav-overview-${b.id}" aria-selected="true">Overview</button>
+
+	// 	                            <button class="nav-link" id="nav-synopsis-tab-${b.id}"
+	// 	                                data-bs-toggle="tab" data-bs-target="#nav-details-${b.id}" type="button"
+	// 	                                role="tab" aria-controls="nav-contact-${b.id}" aria-selected="false">Details</button>
+	// 	                        </div>
+	// 	                    </nav>
+
+	// 	                    <div class="tab-content" id="nav-tabContent">
+
+	// 	                        <div class="tab-pane fade show active overview" id="nav-overview-${b.id}"
+	// 	                            role="tabpanel" aria-labelledby="nav-overview-tab-${b.id}" tabindex="0">
+
+	// 	                            <div class="img-card">
+	// 	                            <img src="images/Book${b.cover}.png" width="35%" height="auto">
+	// 	                            </div>
+	// 	                            <ul>
+	// 	                                <li class="title"><b>${b.title}</b></li>
+	// 	                                <li class="author"><em>${b.author}</em></li>
+	// 	                            </ul>
+	// 	                        </div>
+
+	// 	                        <div class="tab-pane fade" id="nav-details-${b.id}" role="tabpanel"
+	// 	                            aria-labelledby="nav-details-tab-${b.id}" tabindex="0">
+	// 	                            <ul>
+	// 	                                <li class="detailTitle">Genres</li>
+	// 	                                <li class="genres">${b.genres}</li>
+	// 	                                <li class="detailTitle">Date</li>
+	// 	                                <li class="date">${b.date}</li>
+	// 	                                <li></li>
+	// 	                                <li class="detailTitle">Further Info</li>
+	// 	                                <li class="synopsis"><em><b>Synopsis: </b></em>${b.synopsis}</li>
+	// 	                                <li class="characters"><em><b>Characters: </b></em>${b.characters}</li>
+	// 	                            </ul>
+	// 	                        </div>
+	// 	                        </div>
+	// 	                        <div class="admin-tab">
+	// 	                            <button type="submit" id="updateBook" name="updateBook" class="btn btn-outline-primary thin">Update</button>
+	// 	                            <button type="button" id="deleteBookTab" name="deleteBookTab" class="btn btn-outline-primary thin">Delete</button>
+	// 	                            <div class="download">
+	// 	                                <div class="form-check">
+	// 	                                <input class="form-check-input" type="checkbox" id="flexCheckDefault check-${b.id}" name="selected" data-id="${b.id}">
+	// 	                                <label class="form-check-label" for="flexCheckDefault">Add To Download</label>
+	// 	                                </div>
+	// 	                            </div>
+	// 	                        </div>
+	// 	                    </div>
+	// 	                </div>`).join("");
+
+	// 		$(".book-shelf").append(row);
+
+	// 		if (books.length !== progress) {
+	// 			progress += 5;
+
+	// 			$(".progress-bar")
+	// 				.attr("aria-valuenow", progress)
+	// 				.css("width", progress + "%");
+
+	// 		} else {
+	// 			$(".progress-bar")
+	// 				.attr("aria-valuenow", 100)
+	// 				.css("width", "100%");
+	// 		}
+	// 	}
+
+	// 	$(".loading")
+	// 		.delay(1000)
+	// 		.promise()
+	// 		.done(function() {
+
+	// 			$(".loading").addClass("faded")
+	// 			$(".progress-bar")
+	// 				.attr("aria-valuenow", 0)
+	// 				.css("width", "0%");
+
+	// 		});
+
+	// 	console.log("Checking Items");
+
+	// 	$(document).ready(function() {
+	// 		checkItems(selectedBooks);
+	// 	});
+	// }
+
+    /**
+	UI Event Handler: Close download sidebar and reset MIME type
+	*/
+	// $(document).on('click', '.download-bar .dots.close', function() {
+	// 	$(".sidebar").addClass("fade");
+	// 	requestData.url = `${contextPath}/books-api?page=1`;
+	// 	downloadOpen = false;
+	// 	fileMIME = "";
+	// });
+
+    	// $("#addBook").on("click", function(e) {
+// 	e.preventDefault();
+// 	switchPane('#73b3d3', 'Add New Book', 'Use the form below to add a book to the Library', '#add', e);
+// 	$('.admin-box').removeClass('large');
+// 	$(".book-shelf").html("");
+// 	$(".input-list").html(`<div id="add" class="input-form">
+// 							<ul>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="title" placeholder="Title"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="author" placeholder="Author"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="date" placeholder="Date"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="genres" placeholder="Genres"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="characters" placeholder="Characters"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="text" name="synopsis" placeholder="Synopsis"></li>
+// 								<li><input class="form-control form-control-sm"
+// 									type="hidden" name="requestType" value="POST"></li>
+// 									<li><input type="hidden" name="addBoolean" value="true"></li>
+// 							</ul>
+// 						</div>`);
+// });
+
+// $("#searchBook").on("click", function(e) {
+// 	e.preventDefault();
+// 	console.log("Search Button Clicked");
+// 	switchPane('#93dcc5', 'Search The Library', 'Use the form below to browse the Library', '#search', e);
+// 	$('.admin-box').removeClass('large');
+// 	$(".book-shelf").html("");
+// 	$(".input-list").html(`		<div id="search" class="input-form">
+// 		<select class="form-select form-select-sm" name="bookData"
+// 			id="bookData">
+// 			<option disabled selected>Search by...</option>
+// 			<option value="id">ID</option>
+// 			<option value="title">Title</option>
+// 			<option value="author">Author</option>
+// 			<option value="date">Date</option>
+// 			<option value="genres">Genres</option>
+// 			<option value="characters">Characters</option>
+// 			<option value="synopsis">Synopsis</option>
+// 		</select> <br> <input type="hidden" name="requestType"
+// 			value="GET"> <input
+// 			class="form-control form-control-sm" type="text"
+// 			name="search" placeholder="Enter search parameter here...">
+// 		<br>
+// 	</div>`);
+// });
+
+// $("#deleteBook").on("click", function(e) {
+// 	e.preventDefault();
+// 	switchPane('#a998c3', 'Delete a Book', 'Use the form below to delete a book from the Library', '#delete', e);
+// 	$('.admin-box').removeClass('large');
+// 	$(".book-shelf").html("");
+// 	$(".input-list").html(`		<div id="delete" class="input-form">
+// 		<select name="bookData" id="bookData"
+// 			class="form-select form-select-sm">
+// 			<option disabled selected>Search by...</option>
+// 			<option value="id">ID</option>
+// 			<option value="title">Title</option>
+// 			<option value="author">Author</option>
+// 			<option value="date">Date</option>
+// 			<option value="genres">Genres</option>
+// 			<option value="characters">Characters</option>
+// 			<option value="synopsis">Synopsis</option>
+// 		</select> <br> <input type="hidden" id="requestType"
+// 			name="requestType" value="GET"> <input type="text"
+// 			name="search" placeholder="Enter search parameter here...">
+// 		<br> <br>
+// 		<ul class="results">
+// 			<li><input type="text" name="title" placeholder="Title"
+// 				disabled></li>
+// 			<li><input type="text" name="author"
+// 				placeholder="Author" disabled></li>
+// 			<li><input type="text" name="date" placeholder="Date"
+// 				disabled></li>
+// 			<li><input type="text" name="genres"
+// 				placeholder="Genres" disabled></li>
+// 			<li><input type="text" name="characters"
+// 				placeholder="Characters" disabled></li>
+// 			<li><input type="text" name="synopsis"
+// 				placeholder="Synopsis" disabled></li>
+// 			<li><input type="hidden" name="requestType" value="GET"></li>
+// 		</ul>
+// 	</div>`);
+// });
+
+	/**
+	 * Enables dragging of the sidebar UI panel and the alert box UI panel.
+	 * 
+	 * @function draggable
+	 * 
+	 */
+	// $(".sidebar, .alertBox").draggable({
+	// 	handle: "#download-bar"
+	// });
+
+    	/**
+	 * Handles removal of a book from the download list.
+	 * 
+	 * @event click
+	 * @pattern Observer pattern
+	 */
+	// $(".list-group").on("click", ".remove", function(e) {
+	// 	e.preventDefault();
+	// 	const bookId = parseInt($(this).closest(".list-group-item").data("id"));
+	// 	$(this).closest(".list-group-item").remove();
+	// 	selectedBooks = selectedBooks.filter(book => book.id !== bookId);
+	// 	checkItems(selectedBooks);
+	// 	checkDownloads();
+	// });
+
+
+	/**
+	 * Opens the sidebar and initiates download mode.
+	 * 
+	 * @event click
+	 */
+	// $('#download').on("click", function() {
+	// 	$(".sidebar").removeClass("fade");
+	// 	downloadBooks();
+	// 	downloadOpen = true;
+	// });
+
+
+	/**
+	 * Builds the list of downloadable books in the sidebar.
+	 * 
+	 * @function buildDownloads
+	 */
+	// function buildDownloads(books) {
+	// 	$(".list-group").html("");
+
+	// 	checkDownloads();
+
+	// 	for (let i = 0; i < books.length; i++) {
+
+	// 		const book = books[i]; // Adds book items before the download button - ensures it's always at the bottom
+	// 		$(".list-group").prepend(` 
+	// 			<a href="#" class="list-group-item" aria-current="true" data-id="${book.id}">
+	// 				<div class="d-flex w-100 justify-content-between">
+	// 					<h5 class="mb-1">${book.title}</h5>
+	// 				</div>
+	// 				<small class="mb-3">${book.author}</small>
+	// 				<p class="remove">Remove</p>
+	// 			</a>
+	// 		`);
+	// 	}
+	// }
+
+	/**
+	 * Populates the download list with a placeholder if empty.
+	 * 
+	 * @function checkDownloads
+	 */
+	// function checkDownloads() {
+	// 	if (isListEmpty(selectedBooks)) {
+	// 		console.log("List Empty!");
+	// 		$(".list-group").append(`
+	// 		<a href="#" class="list-group-item" aria-current="true">
+	// 		<div class="d-flex w-100 justify-content-between">
+	// 		<h5 class="mb-1">Download List Empty!</h5>
+	// 		</div>
+	// 		<small class="mb-3">Use the checkbox on each book item, to add it to this list.</small>
+	// 		</a>
+	// 							`);
+	// 	} $(".list-group").append(`<a id="downloadLink" class="d-flex w-100 pt-1 ps-3 pb-2 justify-content-between" download="file" href="#">Download ${fileMIME}</a>`);
+
+	// }
+
+	/**
+	 * Triggers the full download process for selected books.
+	 * 
+	 * @function downloadBooks
+	 */
+	// function downloadBooks() {
+
+	// 	console.log("Selected Books for Download:", selectedBooks);
+	// 	console.log("Request Data - DataType", requestData.dataType);
+	// 	buildDownloads(selectedBooks, requestData.dataType);
+	// 	let convertedArray = convertArrayToFileFormat(selectedBooks, requestData.dataType);
+	// 	arrayToURL(convertedArray, requestData.dataType);
+
+	// }
+
+	/**
+	 * Toggles checkbox state for selected books based on current list.
+	 * 
+	 * @function checkItems
+	 * @param {Array} listGroup - Currently selected books.
+	 */
+	// function checkItems(listGroup) {
+	// 	console.log("Checking Items:", listGroup);
+
+	// 	$('input.form-check-input[name="selected"]').each(function() {
+	// 		const bookId = parseInt($(this).data('id'));
+	// 		console.log("Found checkbox with ID:", bookId);
+
+	// 		if (listGroup.some(item => item.id === bookId)) {
+	// 			$(this).prop('checked', true);
+	// 			console.log("Checked box for ID:", bookId);
+	// 		} else {
+	// 			$(this).prop('checked', false);
+	// 		}
+	// 	});
+	// }
+
+    // function renderBooks(books) {
+//     const shelf = document.querySelector('.book-shelf');
+//     if (!shelf) return;
+//     shelf.innerHTML = '';
+
+//     if (books.length === 0) {
+//         shelf.innerHTML = '<div id="NoBooks">No books found.</div>';
+//         return;
+//     }
+
+//     for (let i = 0; i < books.length; i += 4) {
+//         const rowBooks = books.slice(i, i + 4);
+//         const row = document.createElement('div');
+//         row.className = 'book-row';
+
+//         row.innerHTML = rowBooks.map(b => {
+//             const id = escapeHtml(b.id || '');
+//             const imgSrc = b.coverURL || 'assets/Book11.png';
+//             return `
+//                 <div class="book" data-id="${id}" data-work-key="${b.workKey}">
+//                     <div class="book-container">
+//                         <div class="img-card">
+//                             <img src="${imgSrc}" width="auto" height="150px" alt="cover">
+//                         </div>
+//                         <ul>
+//                             <li class="title"><b>${escapeHtml(b.title)}</b></li>
+//                             <li class="author"><em>${escapeHtml(b.author)}</em></li>
+//                             <li class="synopsis"><em><b>Synopsis: </b></em>${escapeHtml(b.synopsis)}</li>
+//                         </ul>
+//                         <button class="load-synopsis btn btn-outline-primary thin">Load Full Synopsis</button>
+//                     </div>
+//                 </div>`;
+//         }).join('');
+
+//         shelf.appendChild(row);
+//     }
+
+//     // Add click handlers for lazy-loading synopsis
+//     shelf.querySelectorAll('.load-synopsis').forEach(btn => {
+//         btn.addEventListener('click', async () => {
+//             const bookEl = btn.closest('.book');
+//             const workKey = bookEl.dataset.workKey;
+//             if (!workKey) return;
+
+//             btn.disabled = true;
+//             btn.textContent = "Loading...";
+//             const fullSynopsis = await fetchBookDetails(workKey);
+//             bookEl.querySelector('.synopsis').innerHTML = `<em><b>Synopsis: </b></em>${escapeHtml(fullSynopsis)}`;
+//             btn.style.display = 'none';
+//         });
+//     });
+// }
+
+// async function fetchBookSummary(event = null, page = 1) {
+
+// 	let queryA = "lord";
+// 	const editionsUrl = `https://openlibrary.org/search.json?q=${encodeURIComponent(queryA)}&page=${page}&limit=${booksPerPage}`;
+
+// 	try {
+// 		const booksSummary = await fetch(editionsUrl);
+// 		if (!booksSummary.ok) {
+// 			throw new Error(`Response status: ${booksSummary.status}`);
+// 		}
+
+// 		const dataA = await booksSummary.json();
+
+// 		const docsA = dataA.docs || [];
+
+// 		const numFound = dataA.numFound;
+
+// 		const detailedBooks = await Promise.all(docsA.map(async doc => {
+// 			const workKey = doc.key;
+// 			let workDetails = {};
+// 			if(workKey) {
+// 				try {
+// 					const workResponse = await fetch(`https://openlibrary.org${workKey}/editions.json?limit=1`);
+// 					if (workResponse.ok) workDetails = await workResponse.json();
+// 				} catch (e) {
+// 					console.warn(`Could not fetch work details for ${workKey}:`, e);
+// 				}
+// 		}
+// 			return {
+// 				id: workKey? workKey.replace("/works/", "") : "",
+// 				title: doc.title || 'No Title Found',
+// 				author: Array.isArray(doc.author_name) ? doc.author_name.join(', ') : (doc.author_name || 'No Authors Found'),
+// 				date: doc.first_publish_year || 'No Publish Date Found',
+// 				genres: Array.isArray(doc.subject) ? doc.subject.join(', ') : (doc.subject || 'No Genres Found'),
+// 				characters: Array.isArray(doc.person) ? doc.person.join(', ') : (doc.person || 'No Characters Found'),
+// 				synopsis: workDetails.description && typeof workDetails.description === 'object' ? workDetails.description.value : workDetails.description || "No Synopsis Found",
+// 				isbn: Array.isArray(doc.isbn) ? doc.isbn[0] : doc.isbn || "No ISBN Found", 
+// 				coverURL: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : null,
+// 			}
+// 		}));
+		
+// 		// Mark global data source so pagination clicks route correctly
+// 		try {
+// 			window.currentDataSource = 'openlibrary';
+// 		} catch (e) {
+// 			console.debug('Could not set global currentDataSource:', e);
+// 		}
+
+// 		// update current page state and controls
+// 		currentPage = Math.max(1, parseInt(page, 10) || 1);
+// 		updatePaginationControls();
+
+// 		const shelf = document.querySelector('.book-shelf');
+// 		if (!shelf) return;
+// 		shelf.innerHTML = '';
+
+// 		if (docsA.length === 0) {
+// 			shelf.innerHTML = '<div id="NoBooks">No books found.</div>';
+// 			return;
+// 		}
+
+// 		const books = detailedBooks;
+
+// 		for (let i = 0; i < books.length; i += 4) {
+// 			const rowBooks = books.slice(i, i + 4);
+// 			const row = document.createElement('div');
+// 			row.className = 'book-row';
+
+// 			row.innerHTML = rowBooks.map(b => {
+// 				const imgSrc = b.coverURL || `images/Book11.png`;
+// 				const id = escapeHtml(b.id || '').replace('/works/', '');
+
+// 				return `
+// 					<div class="book" data-id="${id}" data-book-type="openlibrary">
+// 						<div class="book-container">
+// 							<nav>
+// 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+// 									<button class="nav-link active" id="nav-overview-tab-${id}" data-bs-toggle="tab" data-bs-target="#nav-overview-${id}" type="button" role="tab" aria-controls="nav-overview-${id}" aria-selected="true">Overview</button>
+// 									<button class="nav-link" id="nav-synopsis-tab-${id}" data-bs-toggle="tab" data-bs-target="#nav-details-${id}" type="button" role="tab" aria-controls="nav-contact-${id}" aria-selected="false">Details</button>
+// 								</div>
+// 							</nav>
+// 							<div class="tab-content" id="nav-tabContent">
+// 								<div class="tab-pane fade show active overview" id="nav-overview-${id}" role="tabpanel" aria-labelledby="nav-overview-tab-${id}" tabindex="0">
+// 									<div class="img-card">
+// 										<img src="${imgSrc}" width="auto" height="150px" alt="cover">
+// 									</div>
+// 									<ul>
+// 										<li class="title"><b>${escapeHtml(b.title)}</b></li>
+// 										<li class="author"><em>${escapeHtml(b.author)}</em></li>
+// 									</ul>
+// 								</div>
+// 								<div class="tab-pane fade" id="nav-details-${id}" role="tabpanel" aria-labelledby="nav-details-tab-${id}" tabindex="0">
+// 									<ul>
+// 										<li class="detailTitle">Genres</li>
+// 										<li class="genres">${escapeHtml(b.genres)}</li>
+// 										<li class="detailTitle">Date</li>
+// 										<li class="date">${escapeHtml(b.date)}</li>
+// 										<li class="detailTitle">Further Info</li>
+// 										<li class="synopsis"><em><b>Synopsis: </b></em>${escapeHtml(b.synopsis)}</li>
+// 										<li class="characters"><em><b>Characters: </b></em>${escapeHtml(b.characters)}</li>
+// 									</ul>
+// 								</div>
+// 							</div>
+// 							<div class="admin-tab">
+// 								<button type="button" id="updateBook" name="updateBook" class="btn btn-outline-primary thin">Update</button>
+// 								<button type="button" id="deleteBookTab" name="deleteBookTab" class="btn btn-outline-primary thin">Delete</button>
+// 								<div class="download">
+// 									<div class="form-check">
+// 										<input class="form-check-input" type="checkbox" id="flexCheckDefault check-${id}" name="selected" data-id="${id}">
+// 										<label class="form-check-label" for="flexCheckDefault">Add To Download</label>
+// 									</div>
+// 								</div>
+// 							</div>
+// 						</div>
+// 					</div>`;
+// 				}).join('');
+
+// 			shelf.appendChild(row);
+// 		}
+
+// 		// Ensure the overlay/pane is visible so the user can see results
+// 		try {
+// 			if (typeof $ !== 'undefined') {
+// 				$('.windowPane').fadeIn(300);
+// 				$('.pagination').fadeIn(300);
+// 			} else {
+// 				const wp = document.querySelector('.windowPane');
+// 				if (wp) wp.style.display = 'flex';
+// 			}
+// 		} catch (e) {
+// 			console.debug('Could not show windowPane:', e);
+// 		}
+
+// 		const pageNumberEl = document.getElementById('pageNumber');
+// 		if (pageNumberEl) pageNumberEl.textContent = `Page ${currentPage} of ${Math.max(1, Math.ceil(numFound / booksPerPage))}`;
+
+// 		// Use the project's central pagination UI if available
+// 		const totalPages = Math.max(1, Math.ceil(numFound / booksPerPage));
+// 		if (typeof window.setPagination === 'function') {
+// 			try {
+// 				window.setPagination(totalPages, currentPage);
+// 			} catch (e) {
+// 				console.debug('setPagination call failed:', e);
+// 			}
+// 		}
+
+// 	} catch (error) {
+// 		console.error('fetchAllBooks error:', error && error.message ? error.message : error);
+// 		const shelf = document.querySelector('.book-shelf');
+// 		if (shelf) shelf.innerHTML = '<div id="NoBooks">Error fetching books. See console for details.</div>';
+// 	}
+// }
+
+// async function populateFilterMenu(list) {
+//     const genres = new Set();
+//     const characters = new Set();
+//     const dates = new Set();
+//     const authors = new Set();
+
+//     // Wait for all fetches to complete
+//     await Promise.all(
+//         list.map(async book => {
+//             const details = await fetchBookDetails(book.id);
+//             details.subjects?.forEach(subject => genres.add(subject));
+//             details.subject_people?.forEach(person => characters.add(person));
+//             if (details.first_publish_year) dates.add(details.first_publish_year);
+//             if (book.author) authors.add(book.author);
+//         })
+//     );
+
+//     const filterList = document.querySelector('.filter-list');
+//     if (!filterList) return;
+
+//     // Generate HTML
+//     filterList.innerHTML = `
+//         ${Array.from(genres).map(genre => `
+//             <li>
+//                 <input type="checkbox" value="${escapeHtml(genre)}" class="genre-filter">
+//                 ${escapeHtml(genre)}
+//             </li>
+//         `).join('')}
+//     `;
+// }
+
+// function sortMyCacheBooks(criteria) {
+//     const books = Array.from(myCacheStore.values());
+
+// books.sort((a, b) => {
+//     switch (criteria) {
+//         case 'title':
+//             return a.title.localeCompare(b.title);
+//         case 'author':
+//             return a.author.localeCompare(b.author);
+//         case 'date':
+//             return (a.date || '').toString().localeCompare((b.date || '').toString());
+//         case 'genres':
+//             return (a.genres || '').localeCompare(b.genres || '');
+//         default:
+//             return 0;
+//     }
+// });
+
+// return books;
+// }
+
+// function populateFilterMenu(books) {
+//     books.forEach(function(key, value) {
+
+//     })
+
+//     })
+
+// }
+
+// function buildBooks(books, mimeType) {
+// 	$(".book-shelf").html("");
+// 	if (books.length === 0) {
+// 		$(".book-shelf").html('<div id="NoBooks">No books found.</div>');
+// 		$(".pagination").fadeOut(500);
+// 	}
+
+// 	let progress = 0;
+
+// 	// Convert book objects into Book instances
+// 	const bookInstances = books.map(b => new Book(b.id, b.title, b.author, b.date, b.genres, b.characters, b.synopsis, b.coverURL, b.cover, b.isbn));
+
+// 	for (let i = 0; i < bookInstances.length; i += 4) {
+// 		const rowBooks = bookInstances.slice(i, i + 4); // Grab 4 books at a time
+// 		const row = document.createElement("div");
+// 		row.className = "book-row"; // Create a new row
+
+// 		row.innerHTML = rowBooks.map(b =>
+// 			`
+//             <div class="book" data-id="${b.id}" data-book-type="${mimeType}">
+//                 <div class="book-container">
+//                     <nav>
+//                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
+//                             <button class="nav-link active" id="nav-overview-tab-${b.id}"
+//                                 data-bs-toggle="tab" data-bs-target="#nav-overview-${b.id}" type="button"
+//                                 role="tab" aria-controls="nav-overview-${b.id}" aria-selected="true">Overview</button>
+
+//                             <button class="nav-link" id="nav-synopsis-tab-${b.id}"
+//                                 data-bs-toggle="tab" data-bs-target="#nav-details-${b.id}" type="button"
+//                                 role="tab" aria-controls="nav-contact-${b.id}" aria-selected="false">Details</button>
+//                         </div>
+//                     </nav>
+
+//                     <div class="tab-content" id="nav-tabContent">
+
+//                         <div class="tab-pane fade show active overview" id="nav-overview-${b.id}"
+//                             role="tabpanel" aria-labelledby="nav-overview-tab-${b.id}" tabindex="0">
+
+//                             <div class="img-card">
+// 							<img src="${b.coverURL ? b.coverURL : `assets/Book${b.cover}.png`}" width="35%" height="auto">
+//                             </div>
+//                             <ul>
+//                                 <li class="title"><b>${b.title}</b></li>
+//                                 <li class="author"><em>${b.author}</em></li>
+//                             </ul>
+//                         </div>
+
+//                         <div class="tab-pane fade" id="nav-details-${b.id}" role="tabpanel"
+//                             aria-labelledby="nav-details-tab-${b.id}" tabindex="0">
+//                             <ul>
+//                                 <li class="detailTitle">Genres</li>
+//                                 <li class="genres">${b.genres}</li>
+//                                 <li class="detailTitle">Date</li>
+//                                 <li class="date">${b.date}</li>
+//                                 <li></li>
+//                                 <li class="detailTitle">Further Info</li>
+//                                 <li class="synopsis"><em><b>Synopsis: </b></em>${b.synopsis}</li>
+//                                 <li class="characters"><em><b>Characters: </b></em>${b.characters}</li>
+//                             </ul>
+//                         </div>
+//                         </div>
+//                         <div class="admin-tab">
+//                             <button type="submit" id="updateBook" name="updateBook" class="btn btn-outline-primary thin">Update</button>
+//                             <button type="button" id="deleteBookTab" name="deleteBookTab" class="btn btn-outline-primary thin">Delete</button>
+//                             <div class="download">
+//                                 <div class="form-check">
+//                                 <input class="form-check-input" type="checkbox" id="flexCheckDefault check-${b.id}" name="selected" data-id="${b.id}">
+//                                 <label class="form-check-label" for="flexCheckDefault">Add To Download</label>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>`).join("");
+
+// 		$(".book-shelf").append(row);
+
+// 		if (books.length !== progress) {
+// 			progress += 5;
+
+// 			$(".progress-bar")
+// 				.attr("aria-valuenow", progress)
+// 				.css("width", progress + "%");
+
+// 		} else {
+// 			$(".progress-bar")
+// 				.attr("aria-valuenow", 100)
+// 				.css("width", "100%");
+// 		}
+// 	}
+
+// 	$(".loading")
+// 		.delay(1000)
+// 		.promise()
+// 		.done(function() {
+
+// 			$(".loading").addClass("faded")
+// 			$(".progress-bar")
+// 				.attr("aria-valuenow", 0)
+// 				.css("width", "0%");
+
+// 		});
+
+// 	console.log("Checking Items");
+
+// 	$(document).ready(function() {
+// 		checkItems(selectedBooks);
+// 	});
+// }
+
+$(document).ready(function() {
+
+	console.log("jQuery Loaded!");
+
+// let requestData;
+// 	const isListEmpty = books => books.length === 0;
+// 	let selectedBooks = [];
+// 	let currentBlobURL = null;
+// 	let filename;
+// 	let fileMIME = "";
+// 	let downloadOpen = false;
+// 	let downBoolean = false;
+// 	let value;
+// 	let bookId;
+// 	let dynamicId;
+// 	let bookDataType;
+
+// $(document).on('click', '.download-bar .dots.close', function() {
+// 	$(".sidebar").addClass("fade");
+// 	requestData.url = `books-api?page=1`;
+// 	downloadOpen = false;
+// 	fileMIME = "";
+// });
+
+// $(document).on('click', '#confirm', function(e) {
+// 	e.preventDefault();
+
+// 	let url = 'books-api';
+
+// 	let bookDataType = $(this).data("book-type");
+// 	console.log("Book Data Type:", bookDataType);
+
+// 	let bookId = $(this).data("book-id");
+// 	console.log("Book ID:", bookId);
+
+// 	let formId = "#deleteForm";
+// 	let formData = new FormData(document.querySelector("#deleteForm"));
+
+// 	switch (bookDataType) {
+// 		case 'application/json':
+// 			bookDataType = 'json';
+// 			break;
+// 		case 'application/xml':
+// 			bookDataType = 'xml';
+// 			break;
+// 		case 'text/plain':
+// 			bookDataType = 'text';
+// 			break;
+// 		default:
+// 			console.log("Invalid data type");
+// 			return;
+// 	}
+
+// 	formData.append('id', bookId);
+// 	formData.append('btnradio', bookDataType);
+// 	formData.dataType = bookDataType;
+// 	formData.type = 'DELETE';
+
+// 	console.log("Updated Form Data with appended ID:");
+// 	for (let pair of formData.entries()) {
+// 		console.log(pair[0] + ": " + pair[1]);
+// 	}
+
+// 	data = convertData(formData, bookDataType);
+
+// 	console.log("Type: " + formData.type);
+// 	console.log("DataType: " + formData.dataType);
+// 	console.log("data: " + formData.data);
+
+// 	// let requestData = requestBuilder(formId, formData, url);
+// 	// sendRequest(requestData);
+
+// 	$(".alertBox").fadeOut(500, function() {
+// 		$(".alertBox").html("");
+// 		$(".windowPane").fadeOut(500);
+// 	});
+// });
+
+// $(document).on('click', '#updateBook', function(e) {
+// 	e.preventDefault();
+// 	$(this).attr("disabled", true);
+// 	$('.pagination').fadeOut(500);
+// 	const bookId = $(this).closest('.book');
+// 	const dynamicId = bookId.data('id');
+// 	console.log("Dynamic Book ID:", dynamicId);
+
+// 	$('.book').each(function() {
+// 		const thisBook = $(this);
+// 		const thisBookId = thisBook.data('id');  // Get the data-id of the current book
+
+// 		console.log("Checking thisBookId:", thisBookId, "against dynamicId:", dynamicId);
+
+// 		// Show or hide the book based on the data-id match
+// 		if (thisBookId !== dynamicId) {
+// 			thisBook.hide(500);
+// 		} else {
+// 			thisBook.show(500); // show the matching book
+// 			const bookSelect = thisBook;
+
+// 			console.log("Setting placeholder values...");
+
+// 			let id = thisBookId;
+// 			$('.updateList input[name="id"]').attr('value', id);
+// 			console.log(id);
+
+// 			let title = bookSelect.find('li.title').text();
+// 			$('.updateList input[name="title"]').attr('value', title);
+
+// 			let author = bookSelect.find('li.author').text();
+// 			$('.updateList input[name="author"]').attr('value', author);
+
+// 			let date = bookSelect.find('li.date').text();
+// 			$('.updateList input[name="date"]').attr('value', date);
+
+// 			let genres = bookSelect.find('li.genres').text();
+// 			$('.updateList input[name="genres"]').attr('value', genres);
+
+// 			let characters = bookSelect.find('li.characters').text();
+// 			$('.updateList textarea[name="characters"]').val(characters);
+
+// 			let synopsis = bookSelect.find('li.synopsis').text();
+// 			$('.updateList textarea[name="synopsis"]').val(synopsis);
+
+// 		}
+
+// 	});
+
+// 	$(".title, .author").toggleClass("update");
+// 	$(".updatePane").stop(true, true).toggle("clip", { direction: "horizontal" }, 750);
+// });
+
+// $(document).on('click', '#deleteBookTab', function(e) {
+// 	e.preventDefault();
+
+// 	value = $("#dialog-confirm").html();
+
+// 	bookId = $(this).closest('.book');
+// 	dynamicId = bookId.data('id');
+
+// 	bookDataType = bookId.data('book-type');
+
+// 	console.log("Dynamic Book ID:", dynamicId);
+
+// 	alertDialog(value, dynamicId, bookDataType);
+// });
+
+// $("#updateForm").on("submit", function(e) {
+// 	e.preventDefault();
+
+// 	let formData = new FormData(this);
+// 	let url = 'books-api';
+
+// 	// Example: logging key-value pairs
+// 	for (let pair of formData.entries()) {
+// 		console.log(pair[0] + ": " + pair[1]);
+// 	}
+
+	// let requestData = requestBuilder(formId, formData, url);
+	// sendRequest(requestData);
+
+// });
+
+});
+
+
+// $(document).ready(function() {
+
+// 	console.log("jQuery Loaded!");
+
+// let requestData;
+// 	const isListEmpty = books => books.length === 0;
+// 	let selectedBooks = [];
+// 	let currentBlobURL = null;
+// 	let filename;
+// 	let fileMIME = "";
+// 	let downloadOpen = false;
+// 	let downBoolean = false;
+// 	let value;
+// 	let bookId;
+// 	let dynamicId;
+// 	let bookDataType;
+
+// function buildDownloads(books) {
+// 	$(".list-group").html("");
+
+// 	checkDownloads();
+
+// 	for (let i = 0; i < books.length; i++) {
+
+// 		const book = books[i];
+// 		$(".list-group").prepend(`
+// 			<a href="#" class="list-group-item" aria-current="true" data-id="${book.id}">
+// 				<div class="d-flex w-100 justify-content-between">
+// 					<h5 class="mb-1">${book.title}</h5>
+// 				</div>
+// 				<small class="mb-3">${book.author}</small>
+// 				<p class="remove">Remove</p>
+// 			</a>
+// 		`);
+// 	}
+// }
+
+// function checkDownloads() {
+// 	if (isListEmpty(selectedBooks)) {
+// 		console.log("List Empty!");
+// 		$(".list-group").append(`
+// 		<a href="#" class="list-group-item" aria-current="true">
+// 		<div class="d-flex w-100 justify-content-between">
+// 		<h5 class="mb-1">Download List Empty!</h5>
+// 		</div>
+// 		<small class="mb-3">Use the checkbox on each book item, to add it to this list.</small>
+// 		</a>
+// 							`);
+// 	} $(".list-group").append(`<a id="downloadLink" class="d-flex w-100 pt-1 ps-3 pb-2 justify-content-between" download="file" href="#">Download ${fileMIME}</a>`);
+
+// }
+
+// function downloadBooks() {
+
+// 	console.log("Selected Books for Download:", selectedBooks);
+// 	console.log("Request Data - DataType", requestData.dataType);
+// 	buildDownloads(selectedBooks, requestData.dataType);
+// 	let convertedArray = convertArrayToFileFormat(selectedBooks, requestData.dataType);
+// 	arrayToURL(convertedArray, requestData.dataType);
+
+// }
+
+// function convertArrayToFileFormat(array, format) {
+// 	switch (format.toLowerCase()) {
+// 		case 'json':
+// 		case 'application/json':
+// 			return JSON.stringify(array);  // Convert array to JSON string
+
+// 		case 'xml':
+// 		case 'application/xml':
+// 			let xmlData = `<?xml version="1.0" encoding="UTF-8"?>\n<books>\n`;
+// 			array.forEach(book => {
+// 				xmlData += `<book>\n`;
+// 				for (let key in book) {
+// 					xmlData += `<${key}>${escapeXml(String(book[key]))}</${key}>\n`;
+// 				}
+// 				xmlData += `</book>\n`;
+// 			});
+// 			xmlData += `</books>`;
+// 			return xmlData;
+
+// 		case 'text':
+// 		case 'text/plain':
+// 			let textData = '';
+// 			array.forEach(book => {
+// 				textData += Object.entries(book)
+// 					.map(([key, value]) => {
+
+// 						const formattedKey = `${key}:`;
+// 						return `${formattedKey} ${value}`;
+// 					})
+// 					.join('\n') + '\n----------------------\n';
+// 			});
+// 			return textData;
+
+// 		default:
+// 			console.error("Unsupported format:", format);
+// 			return null;
+// 	}
+// }
+
+// function arrayToURL(books, mimeType) {
+
+// 	console.log("Current Blob:", currentBlobURL);
+// 	if (currentBlobURL) {
+
+// 		URL.revokeObjectURL(currentBlobURL);
+// 	}
+
+// 	switch (mimeType) {
+// 		case "json":
+// 		case "application/json":
+// 			console.log("JSON MIME Type Detected");
+// 			filename = 'books.json';
+// 			fileMIME = 'JSON File';
+// 			break;
+// 		case "xml":
+// 		case "application/xml":
+// 			console.log("XML MIME Type Detected");
+// 			filename = 'books.xml';
+// 			fileMIME = 'XML File';
+// 			break;
+// 		case "text":
+// 		case "text/plain":
+// 			console.log("Text MIME Type Detected");
+// 			filename = 'books.txt';
+// 			fileMIME = 'Text File';
+// 			break;
+// 		default:
+// 			console.error("Unsupported MIME type:", mimeType);
+// 			return;
+// 	}
+
+// 	console.log("Books data:", books);
+// 	console.log("Creating Blob...");
+// 	const blob = new Blob([books], { type: mimeType });
+// 	currentBlobURL = URL.createObjectURL(blob);
+
+// 	$("#downloadLink").attr("href", currentBlobURL);
+// 	$("#downloadLink").attr("download", filename);
+
+// }
+
+// function escapeXml(str) {
+// 	return str.replace(/[<>&'"]/g, function(char) {
+// 		switch (char) {
+// 			case '<': return '&lt;';
+// 			case '>': return '&gt;';
+// 			case '&': return '&amp;';
+// 			case "'": return '&apos;';
+// 			case '"': return '&quot;';
+// 		}
+// 	});
+// }
+
+// function checkItems(listGroup) {
+// 	console.log("Checking Items:", listGroup);
+
+// 	$('input.form-check-input[name="selected"]').each(function() {
+// 		const bookId = parseInt($(this).data('id'));
+// 		console.log("Found checkbox with ID:", bookId);
+
+// 		if (listGroup.some(item => item.id === bookId)) {
+// 			$(this).prop('checked', true);
+// 			console.log("Checked box for ID:", bookId);
+// 		} else {
+// 			$(this).prop('checked', false);
+// 		}
+// 	});
+// }
+
+// });
+
+// JavaScript code for the Book RESTful API client
+
+
+// Attach event listener when the page loads
+
+
+/*
+	if (event) {
+		event.preventDefault(); // Only prevent default if event exists
+	}
+	console.log("fetchBooks is running...");
+	let baseUrl = `https://openlibrary.org/search.json?q=*&page=${pageNumber}`; // Sets the Base URL
+	const requestType = event.target.querySelector('input[name="fetchAllType"]').value;
+	let format = document.querySelector('input[name="format"]').value;
+	console.log("Base URL:", baseUrl);
+	console.log("Request Type:", requestType);
+	console.log("Format:", format);
+
+	// Dynamically set headers based on form input
+	let headers = new Headers();
+
+	if (format === "application/json") { // Sets the headers based on the format
+		headers.append("Accept", "application/json");
+		headers.append("Content-Type", "application/json");
+	} else if (format === "application/xml") {
+		headers.append("Accept", "application/xml");
+		headers.append("Content-Type", "application/xml");
+	} else if (format === "text/plain") {
+		headers.append("Accept", "text/plain");
+		headers.append("Content-Type", "text/plain");
+	} else {
+		console.error("Invalid format specified");
+		return;
+	}
+
+	let requestOptions = {
+		method: requestType, // Set method dynamically
+		headers: headers
+	};
+
+	fetch(`${baseUrl}?page=${page}`, requestOptions) // Fetches the data from the API usinf FetchAPI
+		.then(response => {
+			if (!response.ok) throw new Error(`Server error! Status: ${response.status}`);
+			console.log(response);
+			return response.json();
+		})
+		.then(data => {
+			class Book {
+				constructor(id, title, author, date, genres, characters, synopsis) {
+					this.id = id;
+					this.title = title;
+					this.author = author;
+					this.date = date;
+					this.genres = genres;
+					this.characters = characters;
+					this.synopsis = synopsis;
+				}
+
+				getId() { return this.id; }
+				getTitle() { return this.title; }
+				getAuthor() { return this.author; }
+				getDate() { return this.date; }
+				getGenres() { return this.genres; }
+				getCharacters() { return this.characters; }
+				getSynopsis() { return this.synopsis; }
+			}
+
+			console.log(data);
+			const booksArray = Array.isArray(data) ? data : data.books || [];
+
+			const books = booksArray.map(b => new Book(b.id, b.title, b.author, b.date, b.genres, b.characters, b.synopsis));
+			console.log(books); // Array of Book objects
+				
+			document.querySelector(".book-shelf").innerHTML = "";
+			for (let i = 0; i < books.length; i += 4) {
+				const rowBooks = books.slice(i, i + 4); // Grab 4 books at a time
+				const row = document.createElement("div");
+				row.className = "book-row"; // Create a new row
+
+				// Build the row with 4 books
+				row.innerHTML = rowBooks.map(b => `
+							<div class="book">
+								<div class="book-container">
+									<div id="show-red-bar" class="red-bar">
+										<div class="dots"></div>
+										<div class="dots"></div>
+										<div class="dots"></div>
+									</div>
+									<div class="book-data-items">
+										<ul>
+											<li class="title"><b>${b.title}</b></li>
+											<li class="author"><em>${b.author}</em></li>
+											<br>
+											<li><b>Genres</b></li>
+											<li class="genre">${b.genres}</li>
+											<li class="date">${b.date}</li>
+											<br>
+											<li><b>Further Info</b></li>
+											<li class="synopsis"><em><b>Synopsis: </b></em>${b.synopsis}</li>
+											<li class="characters"><em><b>Characters: </b></em>${b.characters}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						`).join("");
+
+				document.querySelector(".book-shelf").appendChild(row); // Add the row to the shelf
+			}
+		})
+		.catch(error => console.error("Error fetching all books:", error));
+}*/
+
+
+	// $(".book-shelf").on("change", "input[name='selected']", function() {
+	// 	console.log("Checkbox clicked!");
+
+	// 	const bookId = $(this).data('id'); // Gets the book's ID from the checkbox
+	// 	console.log("Selected Book ID:", bookId);
+	// 	const bookElement = $(this).closest('.book'); // Gets the closest book container element
+
+	// 	const book = new Book(
+	// 		bookId,
+	// 		bookElement.find('.title').text(),
+	// 		bookElement.find('.author').text(),
+	// 		bookElement.find('.date').text(),
+	// 		bookElement.find('.genres').text(),
+	// 		bookElement.find('.characters').text(),
+	// 		bookElement.find('.synopsis').text()
+	// 	);
+
+	// 	// If checked, add to the list
+	// 	if ($(this).is(':checked')) {
+	// 		console.log("Checkbox checked. Book added:", bookId);
+	// 		selectedBooks.push(book);
+	// 	} else {
+	// 		// If unchecked, remove from the list
+	// 		console.log("Checkbox unchecked. Book removed:", bookId);
+	// 		selectedBooks = selectedBooks.filter(function(item) {
+	// 			return item.id !== bookId; // Remove the book by ID
+	// 		});
+	// 	}
+	// 	// buildDownloads(selectedBooks, requestData.dataType);
+	// });

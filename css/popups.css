@@ -1,0 +1,464 @@
+
+/* ########## INITIAL COMPONENTS ########## */
+
+@charset "UTF-8";
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Quicksand", helvetica, sans-serif;
+    background-image: url("/BookRESTfulJS/assets/background1.jpg");
+    background-size: cover;
+    margin-bottom: 10%;
+}
+
+/* Loading screen */
+.loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 237, 214, 0.9);
+    z-index: 700;
+    transition: all 0.75s ease-in-out;
+    opacity: 1;
+}
+
+.loading.faded {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ########## LAYOUT & CONTAINERS ########## */
+
+/* Window Pane - Modal Overlay */
+.windowPane {
+    width: 100%;
+    height: 100vh; /* Ensures viewport height limit */
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: start;
+    z-index: 100;
+}
+
+/* Scrollable Content Inside Pane */
+.windowPane .container-fluid {
+    width: 85%;
+    height: 85%;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 4px solid #6c5c67;
+    border-radius: 15px 15px 30px 30px;
+    overflow-y: scroll;
+    padding-top: 3%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 20%;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    z-index: 100;
+    border: 4px solid #6c5c67;
+    border-radius: 15px 15px 30px 30px;
+    box-shadow: 7px 7px 0px rgba(108, 93, 103, 0.8);
+    overflow: scroll;
+    max-height: 50vh;
+}
+
+/* Hide Sidebar */
+.sidebar.fade {
+    display: none;
+}
+
+/* Sidebar Header */
+.sidebar h5 {
+    font-size: 1rem;
+}
+
+/* Sidebar List */
+.list-group {
+    overflow: auto;
+    max-height: 100%;
+    border-radius: 0;
+}
+
+.list-group-item:first-child {
+    border-radius: 0;
+}
+
+.list-group-item:hover {
+    cursor: default;
+}
+
+/* ########## FONT & TEXT ########## */
+
+/* Headings */
+h1, h3 {
+    font-family: "Press Start 2P", serif;
+    font-weight: 100;
+    text-align: left;
+    margin: auto;
+    letter-spacing: 5%;
+    color: #6c5c67;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h2, h4 {
+    font-family: "Quantico", sans-serif;
+    font-weight: 400;
+    text-align: left;
+    margin: auto;
+    color: #6c5c67;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
+/* Titles & Detail Blocks */
+.titles {
+    width: 100%;
+    margin-left: 5%;
+    color: #6c5c67;
+}
+
+.titles a, .titles a:visited {
+    text-decoration: none;
+    color: #6c5c67;
+}
+
+.detailTitle {
+    font-family: "Quantico", sans-serif;
+    font-weight: 700;
+}
+
+/* Buttons & Navigation Text */
+.nav .btn,
+.admin-tab button,
+.formLink .btn,
+.alertBox .btn {
+    font-family: "Quantico", sans-serif;
+    font-weight: bolder;
+}
+
+/* Paragraph & Miscellaneous Text */
+.update-p {
+    font-size: 1rem;
+    margin-top: 2%;
+    margin-bottom: 8%;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+/* Hover and Active States */
+a:hover, button:hover {
+    text-decoration: underline;
+}
+
+button:active {
+    box-shadow: 0.5px 0.5px 0px #6c5c67;
+}
+
+/* ########## BUTTONS LINKS ALERTS ########## */
+
+/* General Button Styling */
+.btn {
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-family: "Quantico", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Primary Buttons */
+.btn-outline-primary {
+    border-color: #6c5c67;
+    color: #6c5c67;
+    border-width: 2.5px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #ffca85;
+    color: #ffedd6;
+}
+
+/* Submit Button */
+.btn-submit {
+    background-color: #ffca85;
+    border-color: #6c5c67;
+    border-width: 2.5px;
+    color: #6c5c67;
+}
+
+.btn-submit:hover {
+    background-color: #93dcc5;
+}
+
+/* Alert Box Styling */
+.alertBox {
+    width: 50%;
+    left: 25%;
+    top: 15%;
+    position: absolute;
+    z-index: 101;
+    display: none;
+    background: #fff6eb;
+    border: 5px solid #6c5c67;
+    border-radius: 15px 15px 30px 30px;
+    box-shadow: 8px 8px 0px rgba(108, 93, 103, 0.8);
+    padding: 3%;
+    font-size: 1.1rem;
+    font-family: "Quicksand", sans-serif;
+}
+
+.alertBox h1 {
+    font-size: 1.4rem;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.page-link {
+    padding: 8px 12px;
+    background: #fff6eb;
+    border: 3px solid #6c5c67;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.page-link:hover {
+    background-color: #93dcc5;
+}
+
+.page-link.active {
+    background: #73b3d3 !important;
+}
+
+.page-item.disabled .page-link {
+    color: #ccc;
+    cursor: not-allowed;
+    background: transparent;
+    border: none;
+}
+
+/* ########## BOOK ELEMENTS & LISTS ########## */
+
+/* Book Shelf */
+.book-shelf {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7%;
+    margin-top: 2%;
+    padding-top: 2%;
+    transition: all 1s ease;
+    overflow-y: hidden;
+}
+
+/* Book Row */
+.book-row {
+    display: flex;
+    width: 100%;
+    justify-content: left;
+}
+
+/* Individual Book Card */
+.book {
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    font-size: 1vw;
+    border-radius: 15px 15px 30px 30px;
+    overflow: hidden;
+    padding-right: 1%;
+    max-height: 30rem;
+    min-height: 30rem;
+    margin-bottom: 5%;
+    margin: auto;
+}
+
+/* Book Container */
+.book-container {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+    position: relative;
+    height: 100%;
+}
+
+/* Book Title & Author */
+.title {
+    font-size: 1.3rem;
+    font-family: "Quicksand", sans-serif;
+    letter-spacing: 0.5rem;
+}
+
+.author {
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 300;
+    overflow-y: scroll;
+    white-space: wrap;
+}
+
+/* Image Card */
+.img-card {
+    width: 90%;
+    background: #fff6eb;
+    border: 2px solid #6c5c67;
+    border-radius: 15px;
+    margin: auto;
+    box-shadow: 8px 8px 0px #6c5c67;
+}
+
+.img-card img {
+    width: 70%;
+    margin: auto;
+}
+
+/* Book Data Items */
+.book-data-items {
+    margin: 10%;
+    border: 3px solid #6c5c67;
+    border-radius: 15px;
+}
+
+/* Book Data List */
+.book ul {
+    list-style: none;
+    margin: 0;
+    padding: 5%;
+    text-align: left;
+}
+
+.book ul li {
+    padding-bottom: 3%;
+}
+
+/* Tabs for Book Details */
+.tab-pane {
+    max-height: 20rem;
+    overflow-y: scroll;
+    padding-bottom: 0%;
+}
+
+/* Tabs Navigation */
+.nav-tabs {
+    border-bottom: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Active and Inactive Tabs */
+.nav-tabs .nav-link {
+    border: 2px solid #6c5c67;
+    background-color: #93dcc5;
+    color: #6c5c67;
+    border-radius: 0.75rem;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #ffffff;
+    color: #6c5c67;
+    border-top: 2px solid #6c5c67;
+}
+
+.tab-content {
+    border: 2px solid #6c5c67;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 1rem;
+    transition: all 1s ease;
+}
+
+/* ########## UTILITIES & MISC ########## */
+
+/* General visibility toggles */
+.hidden {
+    display: none !important;
+}
+
+.fade {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.75s ease-in-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background: #fff6eb;
+    border-radius: 25px;
+    border: 3px solid rgba(105, 89, 100, 0.5);
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+    background: #ffca85;
+    border-radius: 15px;
+    border: 3px solid #6c5c67;
+}
+
+/* Scrollbar Handle on Hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #93dcc5;
+}
+
+/* Modal Overlay */
+.windowPane {
+    display: none;
+    justify-content: center;
+    align-items: start;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Close Button Styles */
+.dots.close {
+    padding-top: 1px;
+    width: 20px;
+    border-radius: 25px;
+    background: #f66;
+    color: #ffedd6;
+    font-family: "Quantico", sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.dots.close:hover {
+    background-color: #ffca85;
+}
+
+
