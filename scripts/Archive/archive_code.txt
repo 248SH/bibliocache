@@ -147,7 +147,7 @@ ARCHIVED CODE
 // $("#searchBook").on("click", function(e) {
 // 	e.preventDefault();
 // 	console.log("Search Button Clicked");
-// 	switchPane('#93dcc5', 'Search The Library', 'Use the form below to browse the Library', '#search', e);
+// 	switchPane('var(--color-green)', 'Search The Library', 'Use the form below to browse the Library', '#search', e);
 // 	$('.admin-box').removeClass('large');
 // 	$(".book-shelf").html("");
 // 	$(".input-list").html(`		<div id="search" class="input-form">
@@ -1184,3 +1184,565 @@ $(document).ready(function() {
 	// 	}
 	// 	// buildDownloads(selectedBooks, requestData.dataType);
 	// });
+
+	        <!-- UPDATE PANE BUILDER -->
+        <div class="updatePane">
+          <div id="update-bar" class="colour-bar">
+            <div class="dots close">CLOSE</div>
+          </div>
+          <form id="updateForm">
+            <div class="row">
+              <div class="col-4">
+                <h2 class="update-p">
+                  Alter the values below to modify the Book. Leave them
+                  un-altered to keep the values the same.
+                </h2>
+
+                <ul class="updateList">
+                  <li><input type="hidden" name="id" /></li>
+                  <li><label for="title">Title: </label></li>
+                  <li>
+                    <input type="text" name="title" placeholder="Title" />
+                  </li>
+                  <li><label for="author">Author: </label></li>
+                  <li>
+                    <input type="text" name="author" placeholder="Author" />
+                  </li>
+                  <li><label for="date">Date: </label></li>
+                  <li><input type="text" name="date" placeholder="Date" /></li>
+                  <li><label for="genres">Genres: </label></li>
+                  <li>
+                    <input type="text" name="genres" placeholder="Genres" />
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-4"></div>
+              <div class="col-4">
+                <h2 class="update-p">
+                  Press "Submit" when changes have been made, to update the
+                  book.
+                </h2>
+                <ul class="updateList" style="margin-top: 1%">
+                  <li><label for="characters">Characters</label></li>
+                  <li>
+                    <textarea
+                      name="characters"
+                      placeholder="Characters"
+                    ></textarea>
+                  </li>
+                  <li><label for="synopsis">Synopsis</label></li>
+                  <li>
+                    <textarea name="synopsis" placeholder="Synopsis"></textarea>
+                  </li>
+                </ul>
+                <input type="hidden" name="requestTypeUpdate" value="PUT" />
+                <div class="radio">
+                  <div
+                    class="btn-group btn-group-sm"
+                    role="group"
+                    aria-label="Data Type Button Group"
+                  >
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="btnradioupdate"
+                      id="btnradio4"
+                      autocomplete="off"
+                      checked
+                      value="json"
+                    />
+                    <label class="btn btn-outline-primary" for="btnradio4"
+                      >JSON</label
+                    >
+
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="btnradioupdate"
+                      id="btnradio5"
+                      autocomplete="off"
+                      value="xml"
+                    />
+                    <label class="btn btn-outline-primary" for="btnradio5"
+                      >XML</label
+                    >
+                    <input
+                      type="radio"
+                      class="btn-check me-2"
+                      name="btnradioupdate"
+                      id="btnradio6"
+                      autocomplete="off"
+                      value="text"
+                    />
+                    <label class="btn btn-outline-primary" for="btnradio6"
+                      >TEXT</label
+                    >
+
+                    <div
+                      class="btn-group btn-group-sm"
+                      role="group"
+                      aria-label="Submit Button"
+                    >
+                      <button type="submit" class="btn btn-submit">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+		/**
+//  * Switches the UI to the update pane and pre-populates it with the given book's data.
+//  * @param {Book} book - The book whose details should be loaded into the update pane.
+//  */
+// function updatePaneSwitch(book) {
+//   console.log("Switching to update pane with book:", book);
+
+//   const updatePane = document.querySelector(".updatePane");
+//   if (!updatePane || !book) return;
+
+//   openUpdatePaneForBook($(".book").filter(`[data-id="${book.id}"]`));
+// }
+
+    <!-- CONFIRMATION DIALOG -->
+    <div id="dialog-confirm" title="Confirm Item Deletion">
+      <div id="confirm-bar" class="colour-bar">
+        <div class="dots close">&#10005;</div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="alertContent">
+        <h1>Confirm Deletion</h1>
+        <br />
+        <p>
+          This action will permanently delete this Book from the Database.
+          <br />
+          Are you sure you want to delete this book?
+        </p>
+        <p>
+          <em><b>This cannot be un-done!</b></em>
+        </p>
+        <form id="deleteForm">
+          <input type="hidden" name="requestType" value="DELETE" />
+          <input type="hidden" name="delBoolean" value="true" />
+          <button
+            type="submit"
+            class="btn btn-outline-primary"
+            id="confirm"
+            data-book-id=""
+          >
+            Delete Book
+          </button>
+          <button type="button" class="btn btn-outline-primary" id="cancel">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- ERROR DIALOG - DRAGGABLE -->
+    <div id="dialog-error" title="Error Message">
+      <div id="error-bar" class="colour-bar">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="alertContent">
+        <h1>ERROR</h1>
+        <br />
+        <p>
+          This action cannot be completed due to an error. <br />
+          Please try again later.
+        </p>
+        <br />
+        <button type="button" class="btn btn-outline-primary" id="cancel">
+          Close Alert
+        </button>
+      </div>
+    </div>
+
+    <!--  SUCCESS DIALOG -DRAGGABLE -->
+    <div id="dialog-success" title="Success Message">
+      <div id="success-bar" class="colour-bar">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="successContent">
+        <h1>SUCCESS</h1>
+        <br />
+        <p>This operation was completed successfully!</p>
+        <br />
+        <button type="button" class="btn btn-outline-primary" id="cancel">
+          Close Alert
+        </button>
+      </div>
+    </div>
+
+	/* Archived Commented-Out Rules */
+
+/* display: flex; */
+
+/* #dialog-confirm {
+  display: none;
+} */
+
+/* #dialog-success {
+  display: none;
+} */
+
+/* #alert-bar,
+#confirm-bar {
+  background: var(--color-red);
+  border-radius: 10px 10px 0 0;
+} */
+
+/* .alertContent {
+  padding: 3%;
+  padding-top: 10%;
+} */
+
+/* .successContent {
+  padding: 3%;
+  padding-top: 10%;
+} */
+
+/* #dialog-error {
+  display: none;
+} */
+
+/* #error-bar {
+  background: var(--color-red);
+  border-radius: 10px 10px 0 0;
+} */
+
+/* #success-bar {
+  background: rgb(147, 220, 197);
+  border-radius: 10px 10px 0 0;
+} */
+
+/* padding-top: 3%; */
+
+/* z-index: 1000; */
+
+/* max-height: 30rem;
+min-height: 30rem; */
+
+/* #NoBooks {
+  padding-top: 5%;
+  text-align: center;
+  font-family: "Press Start 2P", serif;
+  font-size: 2rem;
+  color: #f1f1f1;
+} */
+
+/* min-height: 70vh; */
+
+/* opacity: 0; */
+
+/* .list-group {
+  overflow: auto;
+  max-height: 100%;
+  border-radius: 0;
+}
+
+.list-group-item:first-child {
+  border-radius: 0;
+}
+
+.list-group-item:hover {
+  cursor: default;
+} */
+
+/* #saveUpdates {
+  width: 45%;
+  margin-left: 4.5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+} */
+
+/* #home {
+  font-family: "Quantico", sans-serif;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+  font-size: 1.2vw;
+  font-weight: bolder;
+  margin-left: 5%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  width: 25%;
+  box-shadow: 3px 2px 0px rgba(108, 93, 103, 0.8);
+  transition: all 0s ease;
+}
+
+#home:active {
+  margin-left: 5.5%;
+  box-shadow: 0.5px 0.5px 0px var(--color-primary);
+} */
+
+/* #home {
+  opacity: 1;
+  position: absolute;
+  bottom: 2%;
+}
+
+#home.index {
+  opacity: 0;
+} */
+
+/* #add.input-form li {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-left: 0;
+}
+
+#add.input-form ul {
+  padding: 0;
+  margin: 0;
+}
+
+#delete.input-form li {
+  padding-top: 2%;
+  padding-bottom: 1%;
+  text-align: left;
+  margin-left: 0;
+} */
+
+/* .results {
+  padding: 0;
+  margin: 0;
+  display: none;
+} */
+
+/* .form-box {
+  padding: 5%;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 75%;
+  transition: all 1s ease-in-out;
+  margin-bottom: 5%;
+}
+
+.form-box.large {
+  height: 100%;
+} */
+
+/* .img-container {
+  width: auto;
+  display: inline;
+  float: right;
+} */
+
+/* .add-box {
+  padding: 1%;
+  width: 60%;
+  display: none;
+} */
+
+/* .search-box {
+  padding: 5%;
+  padding-top: 2%;
+  width: 55%;
+  display: none;
+}
+
+.delete-box {
+  padding: 5%;
+  padding-top: 2%;
+  width: 55%;
+  display: none;
+}
+
+#book-data {
+  width: 7vw;
+  padding: 5%;
+  font-size: 1em;
+  margin-bottom: 3%;
+} */
+
+/* .main_button {
+  width: 7.5vw;
+  height: 2.5vw;
+  font-family: "Quantico", sans-serif;
+  font-size: 1.75vw;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 5px;
+  color: var(--color-primary);
+}
+
+.main_button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.main_button:active {
+  cursor: pointer;
+  border: 3px solid var(--color-accent);
+  text-decoration: underline;
+  color: var(--color-accent);
+} */
+
+/* .footer {
+  width: 20%;
+  height: 20%;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.footer .numbers {
+  font-family: "Quantico", sans-serif;
+  margin: auto;
+  font-size: 1.75vw;
+  color: var(--color-primary);
+}
+
+button.footer-button {
+  width: 5vw;
+  padding: 1%;
+  font-family: "Quantico", sans-serif;
+  font-size: 1.5vw;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 5px;
+  color: var(--color-primary);
+  margin: auto;
+}
+
+button.footer-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+button.footer-button:active {
+  cursor: pointer;
+  border: 3px solid var(--color-accent);
+  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+.spacer {
+  width: 2%;
+} */
+
+/* a.Show,
+a.Search,
+a.Update,
+a.Add,
+a.Delete {
+  width: 7.5vw;
+  height: 2vw;
+  font-family: "Quantico", sans-serif;
+  font-size: 1.5vw;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 5px;
+  color: var(--color-primary);
+  text-decoration: none;
+  padding: 0.3%;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-right: 2%;
+}
+
+a.Show:hover,
+a.Search:hover,
+a.Update:hover,
+a.Add:hover,
+a.Delete:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+a.Show:active,
+a.Search:active,
+a.Update:active,
+a.Add:active,
+a.Delete:active {
+  cursor: pointer;
+  border: 3px solid var(--color-accent);
+  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+a.Show:visited,
+a.Search:visited,
+a.Update:visited,
+a.Add:visited,
+a.Delete:visited {
+  cursor: pointer;
+} */
+
+/* .add-button {
+  font-family: "Quantico", sans-serif;
+  font-size: 1.2em;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 5px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.add-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.add-button:active {
+  cursor: pointer;
+  border: 3px solid var(--color-accent);
+  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+.add-button:visited {
+  cursor: pointer;
+} */
+
+/* .radio-tag {
+  font-size: 1rem !important;
+  text-align: left;
+  margin-left: 0 !important;
+} */
+
+/* .book-data-items {
+  margin-right: 10%;
+  margin-left: 10%;
+  border: 3px solid var(--color-primary);
+  border-radius: 15px;
+} */
+
+/* height: 100%; */
+
+/* .download-bar .dots.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+} */
+
+/* #add.input-form li {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-left: 0;
+}
+
+#add.input-form ul {
+  padding: 0;
+  margin: 0;
+}
+
+#delete.input-form li {
+  padding-top: 2%;
+  padding-bottom: 1%;
+  text-align: left;
+  margin-left: 0;
+} */

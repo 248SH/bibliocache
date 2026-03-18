@@ -4,6 +4,7 @@
  * Calculates the total number of pages for the MyCache store and delegates
  * to `updatePaginationControls`. Hides pagination if there is only one page.
  * @param {number} [page=1] - The currently active page number.
+ * @returns {void}
  */
 function updateMyCachePagination(page = 1) {
 	const totalBooks = myCacheStore.size;
@@ -23,6 +24,7 @@ function updateMyCachePagination(page = 1) {
  * when there is only one page or no pagination element exists.
  * @param {number} totalPages - The total number of available pages.
  * @param {number} currentPage - The currently active page number.
+ * @returns {void}
  */
 function updatePaginationControls(totalPages, currentPage) {
     const $pagination = $('.pagination');
@@ -99,14 +101,16 @@ function updatePaginationControls(totalPages, currentPage) {
         </li>
     `);
 
-    $pagination.fadeIn(200);
+    $pagination.show().fadeTo(200, 1);
 }
 
 	/**
 	 * Empties and hides the `.pagination` element.
+     * @returns {void}
 	 */
 	function clearPaginationControls() {
 		$('.pagination').empty().hide();
+        $("#filterBtn").fadeOut(300);
 	}
 
     $('.pagination').on('click', '.page-link', function (e) {

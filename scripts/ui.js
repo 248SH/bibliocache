@@ -4,11 +4,14 @@
  * Displays a predefined alert message in the `.alertBox` element based on
  * the supplied alert type constant.
  * @param {number} type - One of the `ALERTS` constants (e.g. `ALERTS.EMPTY_SEARCH`).
+ * @returns {void}
  */
 function showAlert(type) {
   const alertBox = document.querySelector(".alertBox");
   const header = alertBox.querySelector("h1");
   const paragraph = alertBox.querySelector("p");
+  const data = JSON.parse(localStorage.getItem("myCache"));
+  const booklist = data ? data.map(entry => (`<b>${entry.book.title}</b> by ${entry.book.author}`)).join("<br>") : "No books saved.";
 
   switch (type) {
     case ALERTS.EMPTY_SEARCH:
@@ -32,6 +35,21 @@ function showAlert(type) {
         "We couldn’t reach Open Library. Please try again later.";
       break;
 
+    case ALERTS.SESSION_SAVED:
+      header.textContent = "Session Saved";
+      paragraph.innerHTML = "Your current session has been saved to <i>localStorage</i>. The following data has been stored:<br><br>" + booklist;
+      break;
+
+    case ALERTS.SESSION_LOADED:
+      header.textContent = "Session Loaded";
+      paragraph.innerHTML = "Your saved session has been loaded from <i>localStorage</i>. The following books have been added to your cache:<br><br>" + booklist;
+      break;
+
+    case ALERTS.SESSION_CLEARED:
+      header.textContent = "Session Cleared";
+      paragraph.innerHTML = "Your saved session has been cleared from <i>localStorage</i>.";
+      break;
+
     default:
       console.warn("Unknown alert type:", type);
       return;
@@ -48,6 +66,7 @@ function showAlert(type) {
  * @param {string} value - The HTML string to inject into the alert box.
  * @param {string|null} bookId - The id of the book the dialog is acting on, or null.
  * @param {string|null} type - The book data type, or null.
+ * @returns {void}
  */
 function alertDialog(value, bookId, type) {
   $(".background").removeClass("faded");
@@ -56,7 +75,7 @@ function alertDialog(value, bookId, type) {
     $(".alertBox #confirm").attr("data-book-id", bookId);
     $(".alertBox #confirm").attr("data-book-type", type);
   } else {
-    console.log("Error thrown");
+    console.warn("Error thrown");
   }
 }
 
@@ -64,13 +83,14 @@ function alertDialog(value, bookId, type) {
  * Animates the Bootstrap progress bar from 0% to 100%.
  * Optionally auto-hides the loading container when the animation completes.
  * @param {boolean} [autoHide=true] - When true, fades out the loading container after completion.
+ * @returns {void}
  */
 function loadProgress(autoHide = true) {
   const bar = $(".progress-bar");
 
-  bar.stop(true, true); // Clear any old queue
-  bar.css({ width: "0%" });
-  bar.data("aria-valuenow", 0);
+  bar.stop(true, true);
+  bar.css({ width: "10%" });
+  bar.data("aria-valuenow", 10);
 
   $(".loading").removeClass("faded");
   const containerWidth = $(".progress").width();
@@ -121,22 +141,48 @@ function loadProgress(autoHide = true) {
  * @returns {Promise<void>} Resolves once the leave animation is complete.
  */
 function leaveLandingPage() {
-  if (!indexActive) return Promise.resolve();
-  console.log("Leaving landing page");
+    if (!indexActive) return Promise.resolve();
 
-  const welcome = $(".welcome.index");
-  const text = welcome.find("p");
+    return new Promise((resolve) => {
+        $('.welcome.index').fadeOut(600, function() {
+            $('h1.index').addClass('small');
+            $('h2.index').addClass('small');
+            $('.titles').addClass('small');
+            $('.container').removeClass('index');
+            $('.header').css('min-height', '20vh');
+
+            setTimeout(() => {
+                reduced = true;
+                indexActive = false;
+                $('.formLink').removeClass('index');
+                resolve();
+            }, 1000);
+        });
+    });
+}
+
+/**
+ * Collapses the index-size header to its compact form and removes the `.index`
+ * class from navigation links. Resolves immediately if already reduced.
+ * @returns {Promise<void>} Resolves once the shrink animation is complete.
+ */
+function reduceHeader() {
+  if (reduced) return Promise.resolve();
+
+  $(".container").removeClass("index");
 
   return new Promise((resolve) => {
-    text.addClass("faded");
-    welcome.addClass("collapsing");
+    $("h1.index").addClass("small");
+    $("h2.index").addClass("small");
 
-    welcome.one("transitionend", () => {
-      reduceHeader().then(() => {
-        indexActive = false;
+    $(".pc-image")
+      .delay(500)
+      .removeClass("fade")
+      .promise()
+      .done(() => {
+        reduced = true;
         resolve();
       });
-    });
   });
 }
 
@@ -145,11 +191,11 @@ function leaveLandingPage() {
  * label based on the supplied options. Only runs after `reduceHeader` completes.
  * @param {{colour?: string, title?: string, text?: string, textContent?: string, input?: string|null, btnText?: string}} options - Display options for the pane.
  * @param {Event} [e] - The optional event that triggered the pane switch.
+ * @returns {void}
  */
 function switchPane(options, e) {
   if (!indexActive) {
     reduceHeader().then(() => {
-      console.log("Switching Pane using parameters:", options);
 
       const {
         colour = "#F7A072",
@@ -169,34 +215,6 @@ function switchPane(options, e) {
 }
 
 /**
- * Collapses the index-size header to its compact form and removes the `.index`
- * class from navigation links. Resolves immediately if already reduced.
- * @returns {Promise<void>} Resolves once the shrink animation is complete.
- */
-function reduceHeader() {
-  if (reduced) return Promise.resolve();
-
-  console.log("Reducing Header");
-
-  $(".container").removeClass("index");
-
-  return new Promise((resolve) => {
-    $("h1.index").addClass("small");
-    $("h2.index").addClass("small");
-
-    $(".pc-image")
-      .delay(500)
-      .removeClass("fade")
-      .promise()
-      .done(() => {
-        reduced = true;
-        $(".formLink").removeClass("index");
-        resolve();
-      });
-  });
-}
-
-/**
  * Slides the admin box up, fades the form container out and back in, then
  * slides the admin box down again before calling `setPageData` for the
  * target page.
@@ -208,15 +226,15 @@ function containerSwitch(page) {
   const formContainer = $(".form-container");
 
   return new Promise((resolve) => {
-    adminBox.slideUp(500, () => {
-      formContainer.fadeOut(300, () => {
+adminBox.slideUp(500, () => {
+    formContainer.fadeOut(300, () => {
+        setPageData(page);
         formContainer.fadeIn(300, () => {
-          adminBox.slideDown(500, () => {
-            setPageData(page);
-            resolve();
-          });
+            adminBox.slideDown(500, () => {
+                resolve();
+            });
         });
-      });
     });
+});
   });
 }

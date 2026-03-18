@@ -1,4 +1,11 @@
-$(document).on('click', '#updateBook', function(e) {
+/**
+ * Opens the update pane for the selected book card, hides other cards, and
+ * pre-fills update form fields with the selected book's current values.
+ * @param {jQuery.Event} e - The click event from the update button.
+ * @this {HTMLElement}
+ * @returns {void}
+ */
+function handleUpdateBookClick(e) {
 		e.preventDefault();
 		$(this).attr("disabled", true);
 		$('.pagination').fadeOut(500);
@@ -48,4 +55,6 @@ $(document).on('click', '#updateBook', function(e) {
 
 		$(".title, .author").toggleClass("update");
 		$(".updatePane").stop(true, true).toggle("clip", { direction: "horizontal" }, 750);
-	});
+	}
+
+$(document).on('click', '#updateBook', handleUpdateBookClick);

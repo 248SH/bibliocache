@@ -51,7 +51,7 @@ body {
     height: 85%;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.7);
-    border: 4px solid #6c5c67;
+    border: 4px solid var(--color-primary);
     border-radius: 15px 15px 30px 30px;
     overflow-y: scroll;
     padding-top: 3%;
@@ -64,7 +64,7 @@ body {
     top: 15%;
     right: 5%;
     z-index: 100;
-    border: 4px solid #6c5c67;
+    border: 4px solid var(--color-primary);
     border-radius: 15px 15px 30px 30px;
     box-shadow: 7px 7px 0px rgba(108, 93, 103, 0.8);
     overflow: scroll;
@@ -105,7 +105,7 @@ h1, h3 {
     text-align: left;
     margin: auto;
     letter-spacing: 5%;
-    color: #6c5c67;
+    color: var(--color-primary);
 }
 
 h1 {
@@ -121,7 +121,7 @@ h2, h4 {
     font-weight: 400;
     text-align: left;
     margin: auto;
-    color: #6c5c67;
+    color: var(--color-primary);
 }
 
 h2 {
@@ -136,12 +136,12 @@ h4 {
 .titles {
     width: 100%;
     margin-left: 5%;
-    color: #6c5c67;
+    color: var(--color-primary);
 }
 
 .titles a, .titles a:visited {
     text-decoration: none;
-    color: #6c5c67;
+    color: var(--color-primary);
 }
 
 .detailTitle {
@@ -175,7 +175,7 @@ a:hover, button:hover {
 }
 
 button:active {
-    box-shadow: 0.5px 0.5px 0px #6c5c67;
+    box-shadow: 0.5px 0.5px 0px var(--color-primary);
 }
 
 /* ########## BUTTONS LINKS ALERTS ########## */
@@ -191,22 +191,22 @@ button:active {
 
 /* Primary Buttons */
 .btn-outline-primary {
-    border-color: #6c5c67;
-    color: #6c5c67;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
     border-width: 2.5px;
 }
 
 .btn-outline-primary:hover {
-    background-color: #ffca85;
+    background-color: var(--color-accent);
     color: #ffedd6;
 }
 
 /* Submit Button */
 .btn-submit {
-    background-color: #ffca85;
-    border-color: #6c5c67;
+    background-color: var(--color-accent);
+    border-color: var(--color-primary);
     border-width: 2.5px;
-    color: #6c5c67;
+    color: var(--color-primary);
 }
 
 .btn-submit:hover {
@@ -222,7 +222,7 @@ button:active {
     z-index: 101;
     display: none;
     background: #fff6eb;
-    border: 5px solid #6c5c67;
+    border: 5px solid var(--color-primary);
     border-radius: 15px 15px 30px 30px;
     box-shadow: 8px 8px 0px rgba(108, 93, 103, 0.8);
     padding: 3%;
@@ -249,7 +249,7 @@ button:active {
 .page-link {
     padding: 8px 12px;
     background: #fff6eb;
-    border: 3px solid #6c5c67;
+    border: 3px solid var(--color-primary);
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -333,10 +333,10 @@ button:active {
 .img-card {
     width: 90%;
     background: #fff6eb;
-    border: 2px solid #6c5c67;
+    border: 2px solid var(--color-primary);
     border-radius: 15px;
     margin: auto;
-    box-shadow: 8px 8px 0px #6c5c67;
+    box-shadow: 8px 8px 0px var(--color-primary);
 }
 
 .img-card img {
@@ -347,7 +347,7 @@ button:active {
 /* Book Data Items */
 .book-data-items {
     margin: 10%;
-    border: 3px solid #6c5c67;
+    border: 3px solid var(--color-primary);
     border-radius: 15px;
 }
 
@@ -380,20 +380,20 @@ button:active {
 
 /* Active and Inactive Tabs */
 .nav-tabs .nav-link {
-    border: 2px solid #6c5c67;
+    border: 2px solid var(--color-primary);
     background-color: #93dcc5;
-    color: #6c5c67;
+    color: var(--color-primary);
     border-radius: 0.75rem;
 }
 
 .nav-tabs .nav-link.active {
     background-color: #ffffff;
-    color: #6c5c67;
-    border-top: 2px solid #6c5c67;
+    color: var(--color-primary);
+    border-top: 2px solid var(--color-primary);
 }
 
 .tab-content {
-    border: 2px solid #6c5c67;
+    border: 2px solid var(--color-primary);
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 1rem;
@@ -427,9 +427,9 @@ button:active {
 
 /* Scrollbar Handle */
 ::-webkit-scrollbar-thumb {
-    background: #ffca85;
+    background: var(--color-accent);
     border-radius: 15px;
-    border: 3px solid #6c5c67;
+    border: 3px solid var(--color-primary);
 }
 
 /* Scrollbar Handle on Hover */
@@ -458,7 +458,7 @@ button:active {
 }
 
 .dots.close:hover {
-    background-color: #ffca85;
+    background-color: var(--color-accent);
 }
 
 

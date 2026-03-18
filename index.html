@@ -20,7 +20,7 @@
       rel="stylesheet"
     />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BiblioCache - The Digital Book Archive</title>
   </head>
   <body data-page="home">
@@ -33,7 +33,6 @@
           <div class="dots"></div>
         </div>
         <div class="video">
-          <!-- <img src="video/animation1.gif"> -->
           <video
             class="loading-animation"
             width="40%"
@@ -44,6 +43,8 @@
           >
             <source src="video/loading.webm" type="video/webm" />
           </video>
+
+		  <img class="loading-animation-fallback" src="video/animation1.gif" alt="Loading..." />
         </div>
         <div class="progress">
           <div
@@ -65,13 +66,28 @@
         <div class="dots"></div>
       </div>
       <div class="filterContent">
-        <h2>Filter Books</h2>
+        <h2>Filter Results</h2>
         <p>Use the options below to filter the books displayed on the page.</p>
         <div class="filter-list-container">
-          <p><em>Coming Soon!</em></p>
-          <p>Filter options will be available in a future update.</p>
+          <p><em>Filtering Coming Soon!</em></p>
+		  <p><em>Sorts the current page of results only.</em></p>
+          <p>Filtering options and full sorting across all results is limited by the OpenLibrary API, which returns results one page at a time.</p>
         </div>
       </div>
+
+	  <div class="sortContent">
+		<h2>Sort Results</h2>
+		<select id="sortField" class="sortSelect">
+			<option value="title">Title</option>
+			<option value="author">Author</option>
+			<option value="date">Date</option>
+		</select>
+		<select id="sortDirection" class="sortSelect">
+			<option value="asc">Ascending</option>
+			<option value="desc">Descending</option>
+		</select>
+		<button type="button" class="btn btn-outline-primary" id="sortBtn">Sort</button>
+	  </div>
     </div>
 
     <!-- ALERT BOX - DRAGGABLE -->
@@ -90,201 +106,15 @@
 
     <div class="background faded"></div>
 
-    <!-- CONFIRMATION DIALOG -->
-    <div id="dialog-confirm" title="Confirm Item Deletion">
-      <div id="confirm-bar" class="colour-bar">
-        <div class="dots close">&#10005;</div>
-        <div class="dots"></div>
-        <div class="dots"></div>
-      </div>
-      <div class="alertContent">
-        <h1>Confirm Deletion</h1>
-        <br />
-        <p>
-          This action will permanently delete this Book from the Database.
-          <br />
-          Are you sure you want to delete this book?
-        </p>
-        <p>
-          <em><b>This cannot be un-done!</b></em>
-        </p>
-        <form id="deleteForm">
-          <input type="hidden" name="requestType" value="DELETE" />
-          <input type="hidden" name="delBoolean" value="true" />
-          <button
-            type="submit"
-            class="btn btn-outline-primary"
-            id="confirm"
-            data-book-id=""
-          >
-            Delete Book
-          </button>
-          <button type="button" class="btn btn-outline-primary" id="cancel">
-            Cancel
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- ERROR DIALOG - DRAGGABLE -->
-    <div id="dialog-error" title="Error Message">
-      <div id="error-bar" class="colour-bar">
-        <div class="dots"></div>
-        <div class="dots"></div>
-        <div class="dots"></div>
-      </div>
-      <div class="alertContent">
-        <h1>ERROR</h1>
-        <br />
-        <p>
-          This action cannot be completed due to an error. <br />
-          Please try again later.
-        </p>
-        <br />
-        <button type="button" class="btn btn-outline-primary" id="cancel">
-          Close Alert
-        </button>
-      </div>
-    </div>
-
-    <!--  SUCCESS DIALOG -DRAGGABLE -->
-    <div id="dialog-success" title="Success Message">
-      <div id="success-bar" class="colour-bar">
-        <div class="dots"></div>
-        <div class="dots"></div>
-        <div class="dots"></div>
-      </div>
-      <div class="successContent">
-        <h1>SUCCESS</h1>
-        <br />
-        <p>This operation was completed successfully!</p>
-        <br />
-        <button type="button" class="btn btn-outline-primary" id="cancel">
-          Close Alert
-        </button>
-      </div>
-    </div>
-
     <!-- WINDOW PANE - MAIN CONTAINER FOR PAGE-->
     <div class="windowPane">
       <div class="container-fluid">
-        <!-- DOWNLOAD PANEL BUILDER -->
+        <!-- FILTER PANEL BUILDER -->
         <div id="box-bar" class="colour-bar">
           <div class="dots close">&#10005;</div>
           <div class="dots"></div>
           <div class="dots"></div>
-          <!-- <div id="download" class="dots download-div">OPEN DOWNLOAD
-					PANEL</div> -->
-        </div>
-
-        <!-- UPDATE PANE BUILDER -->
-        <div class="updatePane">
-          <div id="update-bar" class="colour-bar">
-            <div class="dots close">CLOSE</div>
-          </div>
-          <form id="updateForm">
-            <div class="row">
-              <div class="col-4">
-                <h2 class="update-p">
-                  Alter the values below to modify the Book. Leave them
-                  un-altered to keep the values the same.
-                </h2>
-
-                <ul class="updateList">
-                  <li><input type="hidden" name="id" /></li>
-                  <li><label for="title">Title: </label></li>
-                  <li>
-                    <input type="text" name="title" placeholder="Title" />
-                  </li>
-                  <li><label for="author">Author: </label></li>
-                  <li>
-                    <input type="text" name="author" placeholder="Author" />
-                  </li>
-                  <li><label for="date">Date: </label></li>
-                  <li><input type="text" name="date" placeholder="Date" /></li>
-                  <li><label for="genres">Genres: </label></li>
-                  <li>
-                    <input type="text" name="genres" placeholder="Genres" />
-                  </li>
-                </ul>
-              </div>
-
-              <div class="col-4"></div>
-              <div class="col-4">
-                <h2 class="update-p">
-                  Press "Submit" when changes have been made, to update the
-                  book.
-                </h2>
-                <ul class="updateList" style="margin-top: 1%">
-                  <li><label for="characters">Characters</label></li>
-                  <li>
-                    <textarea
-                      name="characters"
-                      placeholder="Characters"
-                    ></textarea>
-                  </li>
-                  <li><label for="synopsis">Synopsis</label></li>
-                  <li>
-                    <textarea name="synopsis" placeholder="Synopsis"></textarea>
-                  </li>
-                </ul>
-                <input type="hidden" name="requestTypeUpdate" value="PUT" />
-                <div class="radio">
-                  <div
-                    class="btn-group btn-group-sm"
-                    role="group"
-                    aria-label="Data Type Button Group"
-                  >
-                    <input
-                      type="radio"
-                      class="btn-check"
-                      name="btnradioupdate"
-                      id="btnradio4"
-                      autocomplete="off"
-                      checked
-                      value="json"
-                    />
-                    <label class="btn btn-outline-primary" for="btnradio4"
-                      >JSON</label
-                    >
-
-                    <input
-                      type="radio"
-                      class="btn-check"
-                      name="btnradioupdate"
-                      id="btnradio5"
-                      autocomplete="off"
-                      value="xml"
-                    />
-                    <label class="btn btn-outline-primary" for="btnradio5"
-                      >XML</label
-                    >
-                    <input
-                      type="radio"
-                      class="btn-check me-2"
-                      name="btnradioupdate"
-                      id="btnradio6"
-                      autocomplete="off"
-                      value="text"
-                    />
-                    <label class="btn btn-outline-primary" for="btnradio6"
-                      >TEXT</label
-                    >
-
-                    <div
-                      class="btn-group btn-group-sm"
-                      role="group"
-                      aria-label="Submit Button"
-                    >
-                      <button type="submit" class="btn btn-submit">
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
+          <div id="filterBtn" class="dots download-div">FILTER RESULTS</div>
         </div>
 
         <!-- MAIN BOOKSHELF - DYNAMICALLY UPDATED -->
@@ -324,11 +154,14 @@
               Welcome to Biblio-Cache!
               <br />
               <br />
-              A RESTful API powered Digital Book Archive, helping you build your
+              A browser-based book library powered by the OpenLibrary API, helping you build your
               personal book collection with ease.
-              <br />
-              <br />
-              To begin, use the navigation buttons below.
+			  <br />
+			  <br />
+              Biblio-Cache saves your book collection to your browser's <em>localStorage</em>. No data is sent to any server, and your collection is <b>only accessible on this device and browser</b>. Use the Save, Load, and Clear Session buttons to manage your data.
+			  <br />
+			  <br />
+			  To begin, use the navigation buttons below.
             </p>
           </div>
 
@@ -357,6 +190,9 @@
                   Search The Library
                 </button>
               </form>
+			<button type="button" class="btn btn-outline-primary" id="saveSession">Save Session</button>
+			<button type="button" class="btn btn-outline-primary" id="loadSession">Load Session</button>
+			<button type="button" class="btn btn-outline-primary" id="clearSession">Clear Session</button>
             </div>
             <!-- Nav End -->
           </div>

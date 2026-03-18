@@ -1,6 +1,4 @@
 
-console.log("Book Class Loaded!");
-
 const bookCover = new Map([
 	["fantasy", 1],
 	["adventure", 1],
@@ -25,9 +23,6 @@ const bookCover = new Map([
 	["", 11]
 ]);
 
-/**
- * Represents a book entry, either from the OpenLibrary API or a local cache.
- */
 class Book {
     /**
      * Creates a new Book instance.
@@ -51,17 +46,6 @@ class Book {
         this.synopsis = synopsis;
 		this.coverURL = coverURL || null;
         this.isbn = isbn;
-		this.cover = this.assignCover();
-    }
-
-    /**
-     * Assigns a numeric cover image index based on the book's primary genre.
-     * Falls back to cover index 11 if the genre is not in the `bookCover` map.
-     * @returns {number|string} The cover image index.
-     */
-    assignCover() {
-        const genre = this.genres.split(",")[0].trim().toLowerCase();
-        return bookCover.has(genre) ? bookCover.get(genre) : "11";
     }
 }
 

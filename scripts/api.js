@@ -1,33 +1,26 @@
 // api.js — Handles all OpenLibrary API calls and book data fetching
 
 /**
- * Builds an OpenLibrary search API URL based on the search field.
+ * Builds an OpenLibrary Search API URL from the requested field and query.
  * @param {string} query - The search term entered by the user.
  * @param {string} field - The field to search by (e.g. 'title', 'author', 'genres', 'date').
  * @param {number} page - The page number for paginated results.
  * @param {number} booksPerPage - The number of results to return per page.
- * @returns {string} The fully constructed OpenLibrary API URL.
+ * @returns {string} The fully constructed search URL.
  */
 function URLBuilder(query, field, page, booksPerPage) {
-  console.log("Building URL for query:", query, "field:", field);
 
   switch (field) {
     case "title":
     case "author":
-      console.log("Title/Author search detected");
       return `https://openlibrary.org/search.json?${encodeURIComponent(field)}=${encodeURIComponent(query)}&page=${page}&limit=${booksPerPage}`;
     case "genres":
-      console.log("Genre search detected");
       return `https://openlibrary.org/search.json?subject=${encodeURIComponent(query)}&page=${page}&limit=${booksPerPage}`;
     case "characters":
-      console.log("Character search detected");
       return `https://openlibrary.org/search.json?person=${encodeURIComponent(query)}&page=${page}&limit=${booksPerPage}`;
     case "synopsis":
-      console.log("Synopsis search detected");
       return `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&page=${page}&limit=${booksPerPage}`;
     case "date":
-      console.log("Date search detected");
-      // Use q=first_publish_year:YEAR to mimic website
       return `https://openlibrary.org/search.json?q=${encodeURIComponent("first_publish_year:" + query)}&page=${page}&limit=${booksPerPage}`;
     default:
       console.warn("Unknown search field:", field);
@@ -41,7 +34,7 @@ function URLBuilder(query, field, page, booksPerPage) {
  * renders them to the UI, and updates pagination controls.
  * @async
  * @param {string} query - The search term.
- * @param {string} field - The field to search by (e.g. 'title', 'author').
+ * @param {string} field - The field to search by (e.g. 'title', 'author', 'genres', 'date').
  * @param {number} [page=1] - The page number to fetch.
  * @param {number} [booksPerPage=40] - The number of results per page.
  * @returns {Promise<{books: Book[], numFound: number}>} The fetched books and total result count.
@@ -52,28 +45,16 @@ async function fetchBookSummary(query, field, page = 1, booksPerPage = 40) {
 
   try {
     const url = URLBuilder(query, field, page, booksPerPage);
-    // const headers = {
-    //     "User-Agent": "BiblioCache/1.0 (bibliocache@outlook.com)"
-    // }
-
-    // const options = {
-    //     method: "GET",
-    //     headers: headers
-    // }
-
     const response = await fetch(url);
     if (!response.ok)
       throw new Error(`Search fetch failed: ${response.status}`);
     const data = await response.json();
-
-    console.log("Search results data:", data);
 
     if (!data.docs || data.docs.length === 0) {
       showAlert(ALERTS.NO_RESULTS);
       return { books: [], numFound: 0 };
     }
 
-    console.log("Books data: ", data.docs);
     const books = (data.docs || []).map((doc) => {
       const book = new Book(
         doc.key ? doc.key.replace("/works/", "") : "",
@@ -121,7 +102,8 @@ async function fetchBookSummary(query, field, page = 1, booksPerPage = 40) {
  * from the OpenLibrary Works API.
  * @async
  * @param {string} workKey - The OpenLibrary work key (e.g. 'OL12345W').
- * @returns {Promise<{description: string, genres: string, characters: string}>} The book's detailed metadata.
+ * @returns {Promise<{description?: string, genres?: string, characters?: string}>}
+ * The book's detailed metadata, or an empty object if the request fails.
  */
 async function fetchBookDetails(workKey) {
   const response = await fetch(`https://openlibrary.org/works/${workKey}.json`);
@@ -145,7 +127,8 @@ async function fetchBookDetails(workKey) {
  * Merges fetched detail data into the existing book entry in `bookStore`
  * and triggers a UI re-render for that book.
  * @param {string} workKey - The OpenLibrary work key identifying the book.
- * @param {{description: string, genres: string, characters: string}} details - The detail data to merge.
+ * @param {{description?: string, genres?: string, characters?: string}} details - The detail data to merge.
+ * @returns {void}
  */
 function updateMyCacheBookDetails(workKey, details) {
   const book = bookStore.get(workKey);
@@ -156,9 +139,6 @@ function updateMyCacheBookDetails(workKey, details) {
   book.characters = details.characters;
 
   bookStore.set(workKey, book);
-
-  // const uiState = getBookUIState(workKey);
-  // uiState.inCache = true;  // mark as in cache
   renderBookUI(workKey);
 }
 
@@ -167,15 +147,60 @@ function updateMyCacheBookDetails(workKey, details) {
  * merging missing details from the OpenLibrary Works API if necessary.
  * @async
  * @param {string} workKey - The OpenLibrary work key identifying the book.
- * @returns {Promise<Book>} The book with complete detail data.
+ * @returns {Promise<Book|undefined>} The book with complete detail data, if found in `bookStore`.
  */
 async function getBookDetailsFromMyCache(workKey) {
   const book = bookStore.get(workKey);
   if (book && book.synopsis && book.synopsis !== "Loading synopsis...") {
-    return book; // already fetched
+    return book;
   }
 
   const details = await fetchBookDetails(workKey);
   updateMyCacheBookDetails(workKey, details);
   return bookStore.get(workKey);
+}
+
+  /**
+   * Saves the current MyCache session to `localStorage`, including each cached
+   * book and its corresponding UI state.
+   * @returns {void}
+   */
+function saveMyCacheSession() {
+    const cacheData = Array.from(myCacheStore.entries()).map(([id, book]) => ({
+        book,
+        uiState: bookUIState.get(id)
+    }));
+    localStorage.setItem("myCache", JSON.stringify(cacheData));
+    showAlert(ALERTS.SESSION_SAVED);
+}
+
+  /**
+   * Loads a previously saved MyCache session from `localStorage` and restores
+   * both cached books and per-book UI state into memory stores.
+   * @returns {void}
+   */
+function loadMyCacheSession() {
+    const sessionData = localStorage.getItem("myCache");
+    if (!sessionData) return;
+    const cacheData = JSON.parse(sessionData);
+    cacheData.forEach(({ book, uiState }) => {
+        const bookItem = Object.assign(new Book(), book);
+        myCacheStore.set(bookItem.id, bookItem);
+        bookUIState.set(bookItem.id, uiState);
+    });
+    showAlert(ALERTS.SESSION_LOADED);
+}
+
+  /**
+   * Clears the persisted and in-memory MyCache session, resets cache UI state,
+   * and refreshes MyCache pagination back to page 1.
+   * @returns {void}
+   */
+function clearMyCacheSession() {
+    if (!myCacheStore.size) return;
+    localStorage.removeItem("myCache");
+    myCacheStore.clear();
+    bookUIState.clear();
+    updateMyCachePagination(1);
+    showAlert(ALERTS.SESSION_CLEARED);
 }

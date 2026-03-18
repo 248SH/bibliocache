@@ -57,7 +57,7 @@ function createBookElement(b) {
                      tabindex="0">
 
                     <div class="img-card">
-                        <img src="${imgSrc}" height="250" alt="cover">
+                        <img src="${imgSrc}" alt="cover">
                     </div>
 
                     <div class="overview-list">
@@ -67,6 +67,7 @@ function createBookElement(b) {
                     </ul>
                     </div>
                 </div>
+
                 <div class="tab-pane fade"
                      id="nav-details-${id}"
                      role="tabpanel"
@@ -93,13 +94,13 @@ function createBookElement(b) {
             <div class="admin-tab">
                 <button type="button"
                         class="btn btn-outline-primary thin addBookCache">
-                    Save Book
+                    Add To MyCache
                 </button>
                 <ul class="cat-list faded">
-                <li class="header">Add to category:</li>
-                <li><input type="checkbox" name="read" value="read"> Read</li>
-                <li><input type="checkbox" name="wishlist" value="wishlist"> Wishlist</li>
-                <li><input type="checkbox" name="favourite" value="favourite"> Favourite</li>
+                <li class="list-header">Categorise:</li>
+                <li class="option"><input class="cat-check" type="checkbox" name="read" value="read"> Read</li>
+                <li class="option"><input class="cat-check" type="checkbox" name="wishlist" value="wishlist"> Wishlist</li>
+                <li class="option"><input class="cat-check" type="checkbox" name="favourite" value="favourite"> Favourite</li>
             </ul>
             </div>
 
@@ -113,9 +114,9 @@ function createBookElement(b) {
  * Clears the `.book-shelf` container and renders all supplied books into it,
  * grouped in rows of four. Also triggers a UI state sync for each book.
  * @param {Book[]} books - Array of book objects to render.
+ * @returns {void}
  */
 function renderBooks(books) {
-    console.log("Rendering books:", books);
 
     const shelf = document.querySelector('.book-shelf');
     if (!shelf) return;
@@ -134,13 +135,13 @@ function renderBooks(books) {
         shelf.appendChild(row);
 
         books.slice(i, i + 4).forEach(bookData => {
-            const uiState = getBookUIState(bookData.id);
             renderBookUI(bookData.id);
-            console.log(uiState)
         });
     }
 
+    if (!$('.windowPane').is(':visible')) {
     $('.windowPane').fadeIn(300);
+}
 }
 
 /**
@@ -148,6 +149,7 @@ function renderBooks(books) {
  * classes, button text/state, checkbox values, and indicator visibility to its
  * DOM element.
  * @param {string} bookId - The OpenLibrary work key of the book to update.
+ * @returns {void}
  */
 function renderBookUI(bookId) {
     const state = getBookUIState(bookId);
@@ -171,10 +173,8 @@ function renderBookUI(bookId) {
         ?.classList.toggle("add", state.updateOpen);
     
 if (cacheBtn) {
-    cacheBtn.textContent = state.inCache ? "Book Added!" : "Add To MyCache";
-    cacheBtn.disabled = state.inCache; // disable if already in cache
+    updateCacheButton(cacheBtn, state);
 }
-
     if (catList) {
         catList.classList.toggle("faded", !state.updateOpen);
         catList.style.display = state.updateOpen ? "flex" : "none";
@@ -199,6 +199,42 @@ if (cacheBtn) {
         const indicator = bookEl.querySelector(`.indicator.${key}`);
         if(indicator) indicator.classList.toggle("true", state.category[key]);
     });
+
+    $("#filterBtn").fadeIn(300);
+}
+
+/**
+ * Updates cache button text, classes, and disabled state from the current UI state.
+ * @param {HTMLElement} cacheBtn - The cache button element to update.
+ * @param {{inCache: boolean, updateOpen: boolean}} state - The current UI state flags for cache and pane status.
+ * @returns {void}
+ */
+function updateCacheButton(cacheBtn, state) {
+    if (state.inCache && state.updateOpen && !cacheBtn.classList.contains("remove")) {
+        cacheBtn.textContent = "Book Added!";
+        cacheBtn.disabled = true;
+        setTimeout(() => {
+            $(cacheBtn).fadeTo(300, 0, function() {
+                cacheBtn.textContent = "Remove Book";
+                $(cacheBtn).addClass("remove");
+                cacheBtn.disabled = false;
+                $(cacheBtn).fadeTo(300, 1);
+            });
+        }, 3000);
+    } else if (cacheBtn.classList.contains("remove") && state.inCache && state.updateOpen) {
+        cacheBtn.textContent = "Remove Book";
+    } else if (cacheBtn.classList.contains("remove")) {
+        cacheBtn.textContent = "Add To MyCache";
+        $(cacheBtn).removeClass("remove");
+        cacheBtn.disabled = false;
+    } else if (state.inCache && !state.updateOpen) {
+        cacheBtn.textContent = "Remove Book";
+        $(cacheBtn).addClass("remove");
+    } else {
+        cacheBtn.textContent = "Add To MyCache";
+        $(cacheBtn).removeClass("remove");
+        cacheBtn.disabled = false;
+    }
 }
 
 /**
@@ -206,6 +242,7 @@ if (cacheBtn) {
  * detail container element.
  * @param {Book} book - The book whose details should be displayed.
  * @param {Element} container - The container element that holds the detail list items.
+ * @returns {void}
  */
 function renderBookDetails(book, container) {
     container.querySelector(".genres").textContent = book.genres;
