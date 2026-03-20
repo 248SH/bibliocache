@@ -293,11 +293,11 @@ function runSearchLoad(e) {
 			<option value="genres">Genres</option>
 			<option value="characters">Characters</option>
 			<option value="synopsis">Synopsis</option>
-		</select> <br> <input type="hidden" name="requestType"
+		</select> <br class="break"> <input type="hidden" name="requestType"
 			value="GET"> <input
 			class="form-control form-control-sm" type="text"
 			name="search" placeholder="Enter search parameter here...">
-		<br>
+		<br class="break">
 	</div>`);
   $(".pc-image").delay(1000).removeClass("fade");
 }
