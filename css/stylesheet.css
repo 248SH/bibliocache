@@ -158,7 +158,7 @@ body {
   padding: 0;
 }
 
-.alertBox, .rotate-device {
+.alertBox {
   width: 50%;
   left: 25%;
   top: 15%;
@@ -173,6 +173,24 @@ body {
   margin: auto;
   color: var(--color-primary);
   font-size: 1.1rem;
+  font-family: "Quicksand", sans-serif;
+}
+
+.rotate-device {
+  width: 80%;
+  left: 10%;
+  top: 15%;
+  position: absolute;
+  z-index: 1001;
+  display: none;
+  margin-top: 10%;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  border-radius: 15px 15px 30px 30px;
+  box-shadow: var(--shadow-main);
+  margin: auto;
+  color: var(--color-primary);
+  font-size: 1rem;
   font-family: "Quicksand", sans-serif;
 }
 
@@ -1556,16 +1574,31 @@ ul.data-list {
 	}
 }
 
+/* Phones in portrait - show rotate message, block page */
 @media (max-width: 768px) and (orientation: portrait) {
   .rotate-device {
-  display: block;
-}
-.background-rotate {
-  opacity: 1;
-}
+    display: block;
+  }
+
+  .rotate-device p {
+    font-size: 14px;
+    color: var(--color-primary);
+  }
+
+  .rotateMessage h1 {
+    font-size: 14px;
+    margin-top: 5%;
+  }
+
+  .background-rotate {
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
-@media (min-width: 768px) and (max-width: 1380px) {
+/* Tablets in landscape and small desktops - apply layout fixes */
+@media (max-width: 768px) and (orientation: landscape),
+       (min-width: 769px) and (max-width: 1380px) {
 
   :root {
     --shadow-main: 1px 1px 0px rgba(108, 93, 103, 0.8);
