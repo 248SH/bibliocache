@@ -1396,12 +1396,6 @@ $(document).ready(function() {
   display: none;
 } */
 
-/* #alert-bar,
-#confirm-bar {
-  background: var(--color-red);
-  border-radius: 10px 10px 0 0;
-} */
-
 /* .alertContent {
   padding: 3%;
   padding-top: 10%;

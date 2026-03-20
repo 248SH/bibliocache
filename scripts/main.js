@@ -594,19 +594,6 @@ document.addEventListener("change", (e) => {
   renderBookUI(bookId);
 });
 
-// $(document).on("click", "#deleteBookTab", function (e) {
-//   e.preventDefault();
-
-//   value = $("#dialog-confirm").html();
-
-//   bookId = $(this).closest(".book");
-//   dynamicId = bookId.data("id");
-
-//   bookDataType = bookId.data("book-type");
-
-//   alertDialog(value, dynamicId, bookDataType);
-// });
-
 $(".alertBox").draggable({
   handle: "#alert-bar",
 });
@@ -618,6 +605,7 @@ $(document).on("click", "#cancel, #alert-bar .close", function (e) {
   $(".alertBox").fadeOut(500, function () {
     $(".background").addClass("faded");
   });
+  $(".loading").addClass("faded");
 });
 
 $(document).on("click", "#update-bar .dots.close", function (e) {

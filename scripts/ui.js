@@ -227,9 +227,9 @@ function containerSwitch(page) {
 
   return new Promise((resolve) => {
 adminBox.slideUp(500, () => {
-    formContainer.fadeOut(300, () => {
+    formContainer.fadeOut(100, () => {
         setPageData(page);
-        formContainer.fadeIn(300, () => {
+        formContainer.fadeIn(100, () => {
             adminBox.slideDown(500, () => {
                 resolve();
             });
